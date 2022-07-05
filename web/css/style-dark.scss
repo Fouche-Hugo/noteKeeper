@@ -1,0 +1,506 @@
+/*
+$violet: #401B37;
+$violet-gris: #786774;
+$blanc: #FCFCFF;*/
+
+$vert: #32330D;
+$gris-fonce: #1C1823;
+$gris-clair: #78745F;
+$blanc: #FCFCFF;
+$jaune: #ffec64;
+$violet: #401B37;
+$rouge: #ED1D20;
+$rouge-fonce: #971313;
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    background: $gris-fonce;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0.5em 1em;
+
+    background: $gris-fonce;
+
+    border: 1px solid $jaune;
+
+    svg {
+        path {
+            fill: $jaune;
+            fill-opacity: 1;
+        }
+    }
+
+    @media screen and (max-width: 400px) {
+        padding: 0;
+    }
+
+    h1 {
+        font-family: 'Nunito';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 2.25rem;
+        letter-spacing: 2px;
+
+        margin: 0;
+        padding: 0;
+
+        color: $jaune;
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+    }
+
+    svg {
+        cursor: pointer;
+    }
+
+    & > div {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5em;
+
+        > div {
+            position: relative;
+
+            @media screen and (max-width: 600px) {
+                position: static;
+            }
+
+            .profil-menu {
+                display: none;
+                opacity: 0;
+                transition: 0.6s ease-in-out opacity;
+
+                font-family: 'Nunito';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 1rem;
+
+                text-align: center;
+
+                a {
+                    text-decoration: none;
+                    padding: 0.3em 0.5em;
+
+                    width: 80%;
+
+                    &:hover {
+                        background: $violet;
+                        color: $blanc;
+                    }
+                }
+
+                .informations-lien {
+                    color: $jaune;
+                    background: $violet;
+                    border: 1px solid $gris-clair;
+                    border-radius: 0.8em;
+
+                    &:hover {
+                        background: $jaune;
+                        color: $violet;
+
+                        font-weight: 600;
+                    }
+                }
+
+                .deconnexion-lien {
+                    color: $blanc;
+                    background: $rouge-fonce;
+                    border-radius: 0.8em;
+                }
+
+                .profil-menu-pc {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 0.8em;
+
+                    padding: 1em 0.5em;
+
+                    min-width: 30ch;
+
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+
+                    background: $gris-fonce;
+                    color: $blanc;
+
+                    border: 1px solid $jaune;
+                    border-radius: 1em;
+
+                    svg {
+                        cursor: default;
+                    }
+                }
+
+                .profil-menu-mobile {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+
+                    padding: 0;
+                    margin: 0;
+
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+
+                    width: 100vw;
+                    height: 100vh;
+
+                    background: $gris-fonce;
+
+                    @media screen and (min-width: 600px) {
+                        display: none;
+                    }
+
+                    > div {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: space-around;
+
+                        min-height: 80%;
+                        width: 100%;
+
+                        border-top: 1px solid $jaune;
+                        border-bottom: 1px solid $jaune;
+
+                        h1 {
+                            font-size: clamp(2.25rem, 2.25rem + 5vw, 4rem);
+                        }
+
+                        a {
+                            font-size: clamp(1.5rem, 2rem + 2vw, 2rem);
+                        }
+                    }
+                }
+            }
+
+            .profil-menu.open {
+                display: block;
+            }
+
+            .profil-menu.open-animation {
+                opacity: 1;
+            }
+
+            .close-profil-menu {
+                display: none;
+                opacity: 0;
+                position: absolute;
+                top: 1rem;
+                right: calc(1rem + 1.25rem / 2);
+
+                width: 1.25rem;
+                aspect-ratio: 1;
+
+                cursor: pointer;
+                transition: 0.6s ease-in-out;
+
+                @media screen and (max-width: 600px) {
+                    top: calc(5vh - 2rem/2);
+                    width: 2rem;
+                }
+
+                &.open {
+                    display: block;
+                }
+
+                &.open-animation {
+                    opacity: 1;
+                }
+
+                > div {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        top: 50%;
+                        left: 0;
+                        width: calc(100% * 1.4);
+                        height: 0.25rem;
+
+                        background: $rouge;
+                        border-radius: 100vw;
+
+                        transform: rotate(45deg);
+                    }
+
+                    &:hover::before {
+                        background: $rouge-fonce;
+                    }
+
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        top: 50%;
+                        left: 0;
+                        width: calc(100% * 1.4);
+                        height: 0.25rem;
+
+                        background: $rouge;
+                        border-radius: 100vw;
+
+                        transform: rotate(-45deg);
+                    }
+
+                    &:hover::after {
+                        background: $rouge-fonce;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.form-connexion {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2em;
+
+    width: min(95%, 52rem);
+    margin: 3rem auto;
+
+    border: 1px solid $gris-clair;
+    border-radius: 1rem;
+
+    //create a shadow ony on the right and bottom
+    box-shadow: 10px 1rem 1rem 0px rgb(0 0 0 / 10%);
+
+    svg {
+        path {
+            fill: $blanc;
+        }
+    }
+
+    .bouton-connexion {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        padding: 0.5em 2em;
+        border: 1px solid $gris-clair;
+        border-radius: 0.5em;
+        background: $violet;
+        color: $jaune;
+        
+        font-family: 'Nunito';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 1.25rem;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        
+        cursor: pointer;
+
+        &:hover {
+            background: $jaune;
+            color: $vert;
+        }
+    }
+
+    a.bouton-connexion {
+        text-decoration: none;
+    }
+
+    .header-connexion {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem;
+
+        padding: 0.5em;
+
+        border-bottom: 1px solid $gris-clair;
+
+        h1 {
+            font-family: 'Nunito';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 2rem;
+
+            margin: 0;
+            padding: 0;
+
+            color: $blanc;
+        }
+    }
+
+    .main-connexion {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+
+        & > div {
+            border: 1px solid $gris-clair;
+            border-radius: 0.5rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.5rem;
+
+            width: min(90%, 18em);
+            padding: 0.5em;
+
+            position: relative;
+
+            &.erreur-serveur {
+                font-family: 'Nunito';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 1rem;
+
+                color: $blanc;
+                background-color: $rouge;
+                border: none;
+
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                button {
+                    outline: none;
+
+                    color: $blanc;
+                    background: $violet;
+                    border: none;
+                    border-radius: 0.4em;
+
+                    font: inherit;
+
+                    cursor: pointer;
+
+                    &:hover {
+                        background: $jaune;
+                        color: $vert;
+                    }
+                }
+            }
+
+            & .tooltip {
+                visibility: hidden;
+
+                & > svg > path {
+                    fill: $rouge;
+                }
+
+                & .tooltip-text {
+                    visibility: hidden;
+                    position: absolute;
+                    z-index: 6;
+
+                    font-family: 'Nunito';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 1rem;
+
+                    color: $gris-fonce;
+                    background-color: $rouge;
+
+                    border-radius: 1em;
+
+                    padding: 0.5em 1em;
+
+                    box-shadow: 6px 7px 10px 4px rgb(0 0 0 / 15%);
+
+                    @media screen and (max-width: 500px) {
+                        right: 0;
+                        top: 3rem;
+                    }
+                }
+            }
+
+            &.erreur {
+                border-color: $rouge;
+                &:focus-within {
+                    outline-color: $rouge;
+                }
+
+                & .tooltip {
+                    visibility: visible;
+
+                    &:hover .tooltip-text {
+                        visibility: visible;
+                    }
+                }
+            }
+
+            &:focus-within {
+                outline: 1px solid $violet;
+            }
+
+            & > input {
+                height: 100%;
+                font-family: 'Nunito';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 1.25rem;
+
+                width: min(70%, 12em);
+
+                margin: 0;
+                padding: 0;
+
+                border: none;
+                outline: none;
+
+                background: $gris-fonce;
+                color: $blanc;
+                
+                &::placeholder {
+                    color: $gris-clair;
+                }
+            }
+        }
+    }
+
+    .footer-connexion {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+
+        padding: 1em 0;
+
+        border-top: 1px solid $gris-clair;
+
+        p {
+            font-family: 'Nunito';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 1.75rem;
+
+            color: $blanc;
+
+            margin: 0;
+        }
+    }
+}
