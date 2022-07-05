@@ -9,7 +9,8 @@ include 'php/connexion_gestion.php';
         <!-- Add the favicon-->
         <link rel="shortcut icon" href="favicon.ico" type="image/ico">
         <title>NoteKeeper - Connexion</title>
-        <link rel="stylesheet" href="css/style-light.css" id="style-mode">
+        <link rel="stylesheet" href="css/style-header-light.css" id="style-mode">
+        <link rel="stylesheet" href="css/style-connexion-inscription-light.css" id="style-mode2">
     </head>
     <body>
         <?php include 'parts/header.php'; ?>

@@ -14,9 +14,11 @@ window.onload = function() {
             toggleMode() {
                 this.mode = this.mode === 'light' ? 'dark' : 'light';
                 if(this.mode === 'light') {
-                    document.querySelector("#style-mode").href = "css/style-light.css";
+                    document.querySelector("#style-mode").href = "css/style-header-light.css";
+                    document.querySelector("#style-mode2").href = "css/style-connexion-inscription-light.css";
                 } else {
-                    document.querySelector("#style-mode").href = "css/style-dark.css";
+                    document.querySelector("#style-mode").href = "css/style-header-dark.css";
+                    document.querySelector("#style-mode2").href = "css/style-connexion-inscription-dark.css";
                 }
             },
             verificationAdresseMail() {

@@ -8,7 +8,7 @@ include 'php/index_gestion.php';
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <title>NoteKeeper</title>
             <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-            <link rel="stylesheet" href="css/style-light.css" id="style-mode">
+            <link rel="stylesheet" href="css/style-header-light.css" id="style-mode">
     </head>
     <body>
         <?php include 'parts/header.php'; ?>

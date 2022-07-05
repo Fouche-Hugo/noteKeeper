@@ -2,17 +2,20 @@ window.onload = function() {
     const vue = Vue.createApp({
         data() {
             return {
-                mode: 'light'
+                mode: 'light',
+                nom: '',
+                prenom: '',
+                email: ''
             }
         },
         methods: {
             toggleMode() {
                 this.mode = this.mode === 'light' ? 'dark' : 'light';
                 if(this.mode === 'light') {
-                    document.querySelector("#style-mode").href = "css/style-light.css";
+                    document.querySelector("#style-mode").href = "css/style-header-light.css";
                     document.querySelector("#style-mode2").href = "css/style-update-infos-light.css";
                 } else {
-                    document.querySelector("#style-mode").href = "css/style-dark.css";
+                    document.querySelector("#style-mode").href = "css/style-header-dark.css";
                     document.querySelector("#style-mode2").href = "css/style-update-infos-dark.css";
                 }
             },
@@ -40,6 +43,11 @@ window.onload = function() {
                     document.querySelector(".close-profil-menu").classList.add("open-animation");
                 }, 1);
             }
+        },
+        mounted() {
+            this.nom = document.querySelector("#nom").getAttribute("data-value");
+            this.prenom = document.querySelector("#prenom").getAttribute("data-value");
+            this.email = document.querySelector("#mail").getAttribute("data-value");
         }
     })
 

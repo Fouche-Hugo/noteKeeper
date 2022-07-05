@@ -1,0 +1,185 @@
+.form-connexion {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2em;
+  width: min(95%, 52rem);
+  margin: 3rem auto;
+  border: 1px solid #78745F;
+  border-radius: 1rem;
+  box-shadow: 10px 1rem 1rem 0px rgba(0, 0, 0, 0.1);
+}
+.form-connexion svg path {
+  fill: #FCFCFF;
+}
+.form-connexion .bouton-connexion {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em 2em;
+  border: 1px solid #78745F;
+  border-radius: 0.5em;
+  background: #401B37;
+  color: #ffec64;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.form-connexion .bouton-connexion:hover {
+  background: #ffec64;
+  color: #32330D;
+}
+.form-connexion a.bouton-connexion {
+  text-decoration: none;
+}
+.form-connexion .header-connexion {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5em;
+  border-bottom: 1px solid #78745F;
+}
+.form-connexion .header-connexion h1 {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+  color: #FCFCFF;
+}
+.form-connexion .main-connexion {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+.form-connexion .main-connexion > div {
+  border: 1px solid #78745F;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  width: min(90%, 18em);
+  padding: 0.5em;
+  position: relative;
+}
+.form-connexion .main-connexion > div.erreur-serveur {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #FCFCFF;
+  background-color: #ED1D20;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.form-connexion .main-connexion > div.erreur-serveur button {
+  outline: none;
+  color: #FCFCFF;
+  background: #401B37;
+  border: none;
+  border-radius: 0.4em;
+  font: inherit;
+  cursor: pointer;
+}
+.form-connexion .main-connexion > div.erreur-serveur button:hover {
+  background: #ffec64;
+  color: #32330D;
+}
+.form-connexion .main-connexion > div .tooltip {
+  visibility: hidden;
+}
+.form-connexion .main-connexion > div .tooltip > svg > path {
+  fill: #ED1D20;
+}
+.form-connexion .main-connexion > div .tooltip .tooltip-text {
+  visibility: hidden;
+  position: absolute;
+  z-index: 6;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #1C1823;
+  background-color: #ED1D20;
+  border-radius: 1em;
+  padding: 0.5em 1em;
+  box-shadow: 6px 7px 10px 4px rgba(0, 0, 0, 0.15);
+}
+@media screen and (max-width: 500px) {
+  .form-connexion .main-connexion > div .tooltip .tooltip-text {
+    right: 0;
+    top: 3rem;
+  }
+}
+.form-connexion .main-connexion > div.erreur {
+  border-color: #ED1D20;
+}
+.form-connexion .main-connexion > div.erreur:focus-within {
+  outline-color: #ED1D20;
+}
+.form-connexion .main-connexion > div.erreur .tooltip {
+  visibility: visible;
+}
+.form-connexion .main-connexion > div.erreur .tooltip:hover .tooltip-text {
+  visibility: visible;
+}
+.form-connexion .main-connexion > div:focus-within {
+  outline: 1px solid #FCFCFF;
+}
+.form-connexion .main-connexion > div > input {
+  height: 100%;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.25rem;
+  width: min(70%, 12em);
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: #1C1823;
+  color: #FCFCFF;
+}
+.form-connexion .main-connexion > div > input::-moz-placeholder {
+  color: #78745F;
+}
+.form-connexion .main-connexion > div > input:-ms-input-placeholder {
+  color: #78745F;
+}
+.form-connexion .main-connexion > div > input::placeholder {
+  color: #78745F;
+}
+.form-connexion .footer-connexion {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1em 0;
+  border-top: 1px solid #78745F;
+}
+.form-connexion .footer-connexion p {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: #FCFCFF;
+  margin: 0;
+}/*# sourceMappingURL=style-connexion-inscription-dark.css.map */

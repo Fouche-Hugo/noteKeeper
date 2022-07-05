@@ -1,0 +1,238 @@
+$jaune: #ffec64;
+$vert: #32330D;
+$violet: #401B37;
+$violet-gris: #786774;
+$blanc: #FCFCFF;
+$rouge: #ED1D20;
+$rouge-fonce: #971313;
+$gris-fonce: #1C1823;
+
+.form-connexion {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2em;
+
+    width: min(95%, 52rem);
+    margin: 3rem auto;
+
+    border: 1px solid $violet-gris;
+    border-radius: 1rem;
+
+    //create a shadow ony on the right and bottom
+    box-shadow: 10px 1rem 1rem 0px rgb(0 0 0 / 10%);
+
+    .bouton-connexion {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        padding: 0.5em 2em;
+        border: 1px solid $violet-gris;
+        border-radius: 0.5em;
+        background: $jaune;
+        color: $vert;
+        
+        font-family: 'Nunito';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 1.25rem;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        
+        cursor: pointer;
+
+        &:hover {
+            background: $violet;
+            color: $blanc;
+        }
+    }
+
+    a.bouton-connexion {
+        text-decoration: none;
+    }
+
+    .header-connexion {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem;
+
+        padding: 0.5em;
+
+        border-bottom: 1px solid $violet-gris;
+
+        h1 {
+            font-family: 'Nunito';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 2rem;
+
+            margin: 0;
+            padding: 0;
+
+            color: $violet;
+        }
+    }
+
+    .main-connexion {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+
+        
+        & > div {
+            border: 1px solid $violet-gris;
+            border-radius: 0.5rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.5rem;
+
+            padding: 0.5em;
+
+            width: min(90%, 18em);
+
+            position: relative;
+
+            &.erreur-serveur {
+                font-family: 'Nunito';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 1rem;
+
+                color: $blanc;
+                background-color: $rouge;
+                border: none;
+
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                button {
+                    outline: none;
+
+                    color: $vert;
+                    background: $jaune;
+                    border: none;
+                    border-radius: 0.4em;
+
+                    font: inherit;
+
+                    cursor: pointer;
+
+                    &:hover {
+                        background: $violet;
+                        color: $blanc;
+                    }
+                }
+            }
+
+            & .tooltip {
+                visibility: hidden;
+
+                & > svg > path {
+                    fill: $rouge;
+                }
+
+                & .tooltip-text {
+                    visibility: hidden;
+                    position: absolute;
+                    z-index: 6;
+
+                    font-family: 'Nunito';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 1rem;
+
+                    color: $blanc;
+                    background-color: $rouge;
+
+                    border-radius: 1em;
+
+                    padding: 0.5em 1em;
+
+                    box-shadow: 6px 7px 10px 4px rgb(0 0 0 / 15%);
+
+                    @media screen and (max-width: 500px) {
+                        right: 0;
+                        top: 3rem;
+                    }
+                }
+            }
+
+            &.erreur {
+                border-color: $rouge;
+                &:focus-within {
+                    outline-color: $rouge;
+                }
+
+                & .tooltip {
+                    visibility: visible;
+
+                    &:hover .tooltip-text {
+                        visibility: visible;
+                    }
+                }
+            }
+
+            &:focus-within {
+                outline: 1px solid $violet-gris;
+            }
+
+            & > input {
+                height: 100%;
+                font-family: 'Nunito';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 1.25rem;
+
+                width: min(70%, 12em);
+
+                margin: 0;
+                padding: 0;
+
+                border: none;
+                outline: none;
+
+                background: $blanc;
+                color: $violet;
+                
+                &::placeholder {
+                    color: $violet-gris;
+                }
+            }
+        }
+    }
+
+    .footer-connexion {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+
+        padding: 1em 0;
+
+        border-top: 1px solid $violet-gris;
+
+        p {
+            font-family: 'Nunito';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 1.75rem;
+
+            color: $violet;
+
+            margin: 0;
+        }
+    }
+}

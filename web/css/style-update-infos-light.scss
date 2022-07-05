@@ -1,0 +1,168 @@
+$jaune: #ffec64;
+$vert: #32330D;
+$violet: #401B37;
+$violet-gris: #786774;
+$blanc: #FCFCFF;
+$rouge: #ED1D20;
+$rouge-fonce: #971313;
+$gris-fonce: #1C1823;
+
+.update-infos-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2em;
+
+    width: min(95%, 52rem);
+    margin: 3rem auto;
+
+    border: 1px solid $violet-gris;
+    border-radius: 1rem;
+
+    //create a shadow ony on the right and bottom
+    box-shadow: 10px 1rem 1rem 0px rgb(0 0 0 / 10%);
+
+    .header-main {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem;
+
+        padding: 0.5em;
+
+        border-bottom: 1px solid $violet-gris;
+
+        h1 {
+            font-family: 'Nunito';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 2rem;
+
+            margin: 0;
+            padding: 0;
+
+            color: $violet;
+        }
+    }
+
+    .main-main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+
+        margin-bottom: 2em;
+        
+        & > form {
+            border: 1px solid $violet-gris;
+            border-radius: 0.5rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.5rem;
+
+            padding: 0.5em;
+
+            width: min(90%, 18em);
+
+            &:focus-within {
+                outline: 1px solid $violet-gris;
+            }
+
+            &.password-form {
+                flex-direction: column;
+                gap: 1.5rem;
+
+                &:focus-within {
+                    outline: none;
+                }
+
+                & > div {
+                    border: 1px solid $violet-gris;
+                    border-radius: 0.5rem;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 0.5rem;
+
+                    padding: 0.5em;
+
+                    width: min(90%, 18em);
+
+                    &:focus-within {
+                        outline: 1px solid $violet-gris;
+                    }
+                }
+
+                .update-infos-submit-button {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+            
+                    padding: 0.5em 2em;
+                    border: 1px solid $violet-gris;
+                    border-radius: 0.5em;
+                    background: $jaune;
+                    color: $vert;
+                    
+                    font-family: 'Nunito';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 1.25rem;
+                    display: flex;
+                    align-items: center;
+                    text-align: center;
+                    letter-spacing: 2px;
+                    text-transform: uppercase;
+                    
+                    cursor: pointer;
+            
+                    &:hover {
+                        background: $violet;
+                        color: $blanc;
+                    }
+                }
+            }
+
+            input {
+                height: 100%;
+                font-family: 'Nunito';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 1.25rem;
+
+                width: min(70%, 12em);
+
+                margin: 0;
+                padding: 0;
+
+                border: none;
+                outline: none;
+
+                background: $blanc;
+                color: $violet;
+                
+                &::placeholder {
+                    color: $violet-gris;
+                }
+            }
+
+            .update-button {
+                cursor: pointer;
+
+                path {
+                    fill: $violet-gris;
+                }
+
+                &:hover {
+                    path {
+                        fill: $violet;
+                    }
+                }
+            }
+        }
+    }
+}

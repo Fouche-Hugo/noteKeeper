@@ -1,0 +1,130 @@
+.update-infos-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2em;
+  width: min(95%, 52rem);
+  margin: 3rem auto;
+  border: 1px solid #78745F;
+  border-radius: 1rem;
+  box-shadow: 10px 1rem 1rem 0px rgba(0, 0, 0, 0.1);
+}
+.update-infos-main svg path {
+  fill: #FCFCFF;
+}
+.update-infos-main .header-main {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5em;
+  border-bottom: 1px solid #78745F;
+}
+.update-infos-main .header-main h1 {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+  color: #FCFCFF;
+}
+.update-infos-main .main-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2em;
+}
+.update-infos-main .main-main > form {
+  border: 1px solid #78745F;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5em;
+  width: min(90%, 18em);
+}
+.update-infos-main .main-main > form:focus-within {
+  outline: 1px solid #FCFCFF;
+}
+.update-infos-main .main-main > form.password-form {
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.update-infos-main .main-main > form.password-form:focus-within {
+  outline: none;
+}
+.update-infos-main .main-main > form.password-form > div {
+  border: 1px solid #78745F;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5em;
+  width: min(90%, 18em);
+}
+.update-infos-main .main-main > form.password-form > div:focus-within {
+  outline: 1px solid #FCFCFF;
+}
+.update-infos-main .main-main > form.password-form .update-infos-submit-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em 2em;
+  border: 1px solid #78745F;
+  border-radius: 0.5em;
+  background: #401B37;
+  color: #ffec64;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.update-infos-main .main-main > form.password-form .update-infos-submit-button:hover {
+  background: #ffec64;
+  color: #32330D;
+}
+.update-infos-main .main-main > form input {
+  height: 100%;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.25rem;
+  width: min(70%, 12em);
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: #1C1823;
+  color: #FCFCFF;
+}
+.update-infos-main .main-main > form input::-moz-placeholder {
+  color: #78745F;
+}
+.update-infos-main .main-main > form input:-ms-input-placeholder {
+  color: #78745F;
+}
+.update-infos-main .main-main > form input::placeholder {
+  color: #78745F;
+}
+.update-infos-main .main-main > form .update-button {
+  cursor: pointer;
+}
+.update-infos-main .main-main > form .update-button path {
+  fill: #78745F;
+}
+.update-infos-main .main-main > form .update-button:hover path {
+  fill: #FCFCFF;
+}/*# sourceMappingURL=style-update-infos-dark.css.map */
