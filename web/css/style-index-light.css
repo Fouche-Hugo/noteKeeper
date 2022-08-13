@@ -1,0 +1,449 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+body {
+  margin: 0;
+  padding: 0;
+  background: #FCFCFF;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em 1em;
+  background: #ffec64;
+  border: 1px solid #32330D;
+}
+@media screen and (max-width: 400px) {
+  header {
+    padding: 0;
+  }
+}
+header h1 {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2.25rem;
+  letter-spacing: 2px;
+  margin: 0;
+  padding: 0;
+  color: #32330D;
+}
+header h1 a {
+  text-decoration: none;
+  color: inherit;
+}
+header svg {
+  cursor: pointer;
+}
+header svg path {
+  fill: #32330D;
+  fill-opacity: 1;
+}
+header > div {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+}
+header > div > div {
+  position: relative;
+}
+@media screen and (max-width: 600px) {
+  header > div > div {
+    position: static;
+  }
+}
+header > div > div .profil-menu {
+  display: none;
+  opacity: 0;
+  transition: 0.6s ease-in-out opacity;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+}
+header > div > div .profil-menu a {
+  text-decoration: none;
+  text-align: center;
+  padding: 0.3em 0.5em;
+  width: 80%;
+}
+header > div > div .profil-menu a:hover {
+  background: #401B37;
+  color: #FCFCFF;
+  font-weight: 500;
+}
+header > div > div .profil-menu .informations-lien {
+  color: #1C1823;
+  background: hsla(50deg, 12%, 42%, 0.7);
+  border: 1px solid #401B37;
+  border-radius: 0.8em;
+}
+header > div > div .profil-menu .deconnexion-lien {
+  color: #FCFCFF;
+  background: #971313;
+  border-radius: 0.8em;
+  font-weight: 500;
+}
+header > div > div .profil-menu .profil-menu-pc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8em;
+  padding: 1em 0.5em;
+  min-width: 30ch;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: #ffec64;
+  color: #32330D;
+  border: 1px solid #32330D;
+  border-radius: 1em;
+}
+@media screen and (max-width: 600px) {
+  header > div > div .profil-menu .profil-menu-pc {
+    display: none;
+  }
+}
+header > div > div .profil-menu .profil-menu-pc svg {
+  cursor: default;
+}
+header > div > div .profil-menu .profil-menu-mobile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #ffec64;
+}
+@media screen and (min-width: 600px) {
+  header > div > div .profil-menu .profil-menu-mobile {
+    display: none;
+  }
+}
+header > div > div .profil-menu .profil-menu-mobile > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 80%;
+  width: 100%;
+  border-top: 1px solid #32330D;
+  border-bottom: 1px solid #32330D;
+}
+header > div > div .profil-menu .profil-menu-mobile > div h1 {
+  font-size: clamp(2.25rem, 2.25rem + 5vw, 4rem);
+}
+header > div > div .profil-menu .profil-menu-mobile > div a {
+  font-size: clamp(1.5rem, 2rem + 2vw, 2rem);
+}
+header > div > div .profil-menu.open {
+  display: block;
+}
+header > div > div .profil-menu.open-animation {
+  opacity: 1;
+}
+header > div > div .close-profil-menu {
+  display: none;
+  opacity: 0;
+  position: absolute;
+  top: 1rem;
+  right: 1.625rem;
+  width: 1.25rem;
+  aspect-ratio: 1;
+  cursor: pointer;
+  transition: 0.6s ease-in-out;
+}
+@media screen and (max-width: 600px) {
+  header > div > div .close-profil-menu {
+    top: calc(5vh - 1rem);
+    width: 2rem;
+  }
+}
+header > div > div .close-profil-menu.open {
+  display: block;
+}
+header > div > div .close-profil-menu.open-animation {
+  opacity: 1;
+}
+header > div > div .close-profil-menu > div {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+header > div > div .close-profil-menu > div::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 140%;
+  height: 0.25rem;
+  background: #971313;
+  border-radius: 100vw;
+  transform: rotate(45deg);
+}
+header > div > div .close-profil-menu > div:hover::before {
+  background: #ED1D20;
+}
+header > div > div .close-profil-menu > div::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 140%;
+  height: 0.25rem;
+  background: #971313;
+  border-radius: 100vw;
+  transform: rotate(-45deg);
+}
+header > div > div .close-profil-menu > div:hover::after {
+  background: #ED1D20;
+}
+
+.note-creation {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  color: #401B37;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 2rem;
+  border: 1px solid #786774;
+  border-radius: 0.8em;
+  padding: 0.5em 1em;
+  margin: auto;
+  margin-top: 2rem;
+  width: min(85%, 30rem);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+@media screen and (max-width: 460px) {
+  .note-creation {
+    padding: 0.3em 0.2em;
+    width: min(95%, 30rem);
+  }
+}
+.note-creation:focus-within {
+  outline: 1px solid #786774;
+}
+.note-creation textarea, .note-creation input {
+  border: none;
+  outline: none;
+  background: none;
+  color: #401B37;
+  caret-color: #401B37;
+  font: inherit;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.note-creation textarea::-moz-placeholder, .note-creation input::-moz-placeholder {
+  color: #786774;
+}
+.note-creation textarea:-ms-input-placeholder, .note-creation input:-ms-input-placeholder {
+  color: #786774;
+}
+.note-creation textarea::placeholder, .note-creation input::placeholder {
+  color: #786774;
+}
+.note-creation textarea {
+  resize: none;
+  overflow: hidden;
+  font-size: 1.2rem;
+  height: 1.3rem;
+}
+.note-creation .note-creation-titre {
+  padding: 0;
+  margin: 0;
+}
+.note-creation .note-creation-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 0.3em;
+}
+.note-creation .note-creation-footer svg {
+  cursor: pointer;
+}
+.note-creation .note-creation-footer svg path {
+  fill: #786774;
+}
+.note-creation .note-creation-footer svg:hover path {
+  fill: #401B37;
+}
+.note-creation .note-creation-footer .note-creation-footer-validate svg path {
+  fill: none;
+  stroke: #0C7003;
+}
+.note-creation .note-creation-footer .note-creation-footer-validate svg:hover path {
+  stroke: #1AB60C;
+}
+.note-creation .note-creation-footer .note-creation-footer-color-menu {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.3em;
+  width: 100%;
+  padding: 0.2em;
+  border: 1px solid #786774;
+  border-radius: 0.8em;
+}
+.note-creation .note-creation-footer .note-creation-footer-color-menu .note-creation-footer-color-menu-item {
+  cursor: pointer;
+  border: 1px solid #786774;
+  border-radius: 0.8em;
+  height: 30px;
+  aspect-ratio: 1;
+}
+.note-creation .note-creation-footer .note-creation-footer-color-menu .note-creation-footer-color-menu-item.delete {
+  border: none;
+}
+.note-creation .note-creation-footer .note-creation-footer-color-menu .note-creation-footer-color-menu-item.delete path {
+  stroke: #971313;
+  opacity: 0.8;
+}
+.note-creation .note-creation-footer .note-creation-footer-color-menu .note-creation-footer-color-menu-item.delete:hover path {
+  stroke: #ED1D20;
+  opacity: 1;
+}
+.note-creation .note-creation-footer .note-creation-footer-pin.pinned path {
+  fill: #401B37;
+}
+.note-creation .note-creation-footer .note-creation-footer-delete svg path {
+  stroke: #971313;
+  opacity: 0.8;
+}
+.note-creation .note-creation-footer .note-creation-footer-delete svg:hover path {
+  stroke: #ED1D20;
+  opacity: 1;
+}
+
+.note {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  color: #401B37;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 2rem;
+  border: 1px solid #786774;
+  border-radius: 0.8em;
+  padding: 0.5em 1em;
+  margin-top: 2rem;
+  width: min(85%, 30rem);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+@media screen and (max-width: 460px) {
+  .note {
+    padding: 0.3em 0.2em;
+    width: min(95%, 30rem);
+  }
+}
+.note .note-header {
+  text-align: center;
+}
+.note .note-content {
+  font-size: 1.3rem;
+}
+.note .note-date {
+  font-size: 0.8rem;
+  text-align: right;
+}
+.note .note-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.3em;
+}
+.note .note-footer.open {
+  justify-content: space-between;
+}
+.note .note-footer .note-footer-hamburger-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 1.6rem;
+  height: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.note .note-footer .note-footer-hamburger-button .note-footer-hamburger-button-top {
+  width: 100%;
+  height: 0.2rem;
+  background: #786774;
+  border-radius: 0.25rem;
+  transition: all 0.3s ease-in-out;
+}
+.note .note-footer .note-footer-hamburger-button .note-footer-hamburger-button-middle {
+  width: 100%;
+  height: 0.2rem;
+  background: #786774;
+  border-radius: 0.25rem;
+  transition: all 0.3s ease-in-out;
+}
+.note .note-footer .note-footer-hamburger-button .note-footer-hamburger-button-bottom {
+  width: 100%;
+  height: 0.2rem;
+  background: #786774;
+  border-radius: 0.25rem;
+  transition: all 0.3s ease-in-out;
+}
+.note .note-footer .note-footer-hamburger-button.open {
+  transform: rotate(-180deg);
+}
+.note .note-footer .note-footer-hamburger-button.open .note-footer-hamburger-button-top {
+  width: 50%;
+  transform: translate(-0.5rem, 0.28rem) rotate(-45deg);
+  background: #401B37;
+}
+.note .note-footer .note-footer-hamburger-button.open .note-footer-hamburger-button-middle {
+  background: #401B37;
+}
+.note .note-footer .note-footer-hamburger-button.open .note-footer-hamburger-button-bottom {
+  width: 50%;
+  transform: translate(-0.5rem, -0.28rem) rotate(45deg);
+  background: #401B37;
+}
+.note .note-footer .note-footer-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+.note .note-footer .note-footer-button.visible {
+  opacity: 1;
+}
+.note .note-footer .note-footer-button svg {
+  cursor: pointer;
+}
+.note .note-footer .note-footer-button svg path {
+  fill: #786774;
+}
+.note .note-footer .note-footer-button svg:hover path {
+  fill: #401B37;
+}
+.note .note-footer .note-footer-button.pinned svg path {
+  fill: #401B37;
+}
+.note .note-footer .note-footer-button.note-footer-delete svg path {
+  stroke: #971313;
+  opacity: 0.8;
+}
+.note .note-footer .note-footer-button.note-footer-delete svg:hover path {
+  stroke: #ED1D20;
+  opacity: 1;
+}/*# sourceMappingURL=style-index-light.css.map */

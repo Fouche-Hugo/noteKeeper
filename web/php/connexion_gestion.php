@@ -9,6 +9,19 @@ if(isset($_SESSION['utilisateur'])){
     header('Location: index.php');
 }
 
+//On test si l'utilisateur est connecté via un cookie
+if(isset($_COOKIE['utilisateur'])){
+    $utilisateur = $_COOKIE['utilisateur'];
+    $utilisateur = json_decode($utilisateur, true);
+    $_SESSION['utilisateur'] = $utilisateur['id'];
+    if(isset($_SERVER['HTTP_REFERER'])) {
+        $referer = $_SERVER['HTTP_REFERER'];
+        header('Location: '.$referer);
+    } else {
+        header('Location: index.php');
+    }
+}
+
 //On test si tout à bien été envoyé
 if(isset($_POST['mail']) && isset($_POST['motDePasse'])) {
     //enlever les caratères dangereux dans les données reçues par POST (mail, motDePasse)
@@ -26,6 +39,8 @@ if(isset($_POST['mail']) && isset($_POST['motDePasse'])) {
         //On vérifie que le mot de passe correspond bien à celui de la base de données
         if(password_verify($password, $passwordBDD)) {
             $_SESSION['utilisateur'] = $id;
+            //on stocke l'id dans un cookie
+            setcookie('utilisateur', json_encode(array('id' => $id)), time() + (86400 * 30), '/');
             header('Location: index.php');
         } else {
             header('Location: connexion.php?erreur=erreurMDP&mail=' . $email);

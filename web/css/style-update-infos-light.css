@@ -35,6 +35,45 @@
   gap: 1.5rem;
   margin-bottom: 2em;
 }
+.update-infos-main .main-main .validation-serveur, .update-infos-main .main-main .erreur-serveur {
+  border: 1px solid #786774;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5em;
+  width: min(90%, 18em);
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #FCFCFF;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.update-infos-main .main-main .validation-serveur button, .update-infos-main .main-main .erreur-serveur button {
+  outline: none;
+  color: #32330D;
+  background: #ffec64;
+  border: none;
+  border-radius: 0.4em;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.update-infos-main .main-main .validation-serveur button:hover, .update-infos-main .main-main .erreur-serveur button:hover {
+  background: #401B37;
+  color: #FCFCFF;
+}
+.update-infos-main .main-main .erreur-serveur {
+  background-color: #ED1D20;
+}
+.update-infos-main .main-main .validation-serveur {
+  background-color: #6D9F71;
+}
 .update-infos-main .main-main > form {
   border: 1px solid #786774;
   border-radius: 0.5rem;
@@ -44,6 +83,45 @@
   gap: 0.5rem;
   padding: 0.5em;
   width: min(90%, 18em);
+  position: relative;
+}
+.update-infos-main .main-main > form.erreur {
+  border-color: #ED1D20;
+}
+.update-infos-main .main-main > form.erreur:focus-within {
+  outline-color: #ED1D20;
+}
+.update-infos-main .main-main > form.erreur .tooltip {
+  visibility: visible;
+}
+.update-infos-main .main-main > form.erreur .tooltip:hover .tooltip-text {
+  visibility: visible;
+}
+.update-infos-main .main-main > form .tooltip {
+  visibility: hidden;
+}
+.update-infos-main .main-main > form .tooltip > svg > path {
+  fill: #ED1D20;
+}
+.update-infos-main .main-main > form .tooltip .tooltip-text {
+  visibility: hidden;
+  position: absolute;
+  z-index: 6;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #FCFCFF;
+  background-color: #ED1D20;
+  border-radius: 1em;
+  padding: 0.5em 1em;
+  box-shadow: 6px 7px 10px 4px rgba(0, 0, 0, 0.15);
+}
+@media screen and (max-width: 500px) {
+  .update-infos-main .main-main > form .tooltip .tooltip-text {
+    right: 0;
+    top: 3rem;
+  }
 }
 .update-infos-main .main-main > form:focus-within {
   outline: 1px solid #786774;
@@ -64,9 +142,22 @@
   gap: 0.5rem;
   padding: 0.5em;
   width: min(90%, 18em);
+  position: relative;
 }
 .update-infos-main .main-main > form.password-form > div:focus-within {
   outline: 1px solid #786774;
+}
+.update-infos-main .main-main > form.password-form > div.erreur {
+  border-color: #ED1D20;
+}
+.update-infos-main .main-main > form.password-form > div.erreur:focus-within {
+  outline-color: #ED1D20;
+}
+.update-infos-main .main-main > form.password-form > div.erreur .tooltip {
+  visibility: visible;
+}
+.update-infos-main .main-main > form.password-form > div.erreur .tooltip:hover .tooltip-text {
+  visibility: visible;
 }
 .update-infos-main .main-main > form.password-form .update-infos-submit-button {
   display: flex;
@@ -116,12 +207,33 @@
 .update-infos-main .main-main > form input::placeholder {
   color: #786774;
 }
-.update-infos-main .main-main > form .update-button {
-  cursor: pointer;
-}
 .update-infos-main .main-main > form .update-button path {
   fill: #786774;
 }
 .update-infos-main .main-main > form .update-button:hover path {
   fill: #401B37;
+}
+.update-infos-main .main-main > form .updating {
+  cursor: pointer;
+  -webkit-animation: infinite tourner linear 2s;
+          animation: infinite tourner linear 2s;
+}
+.update-infos-main .main-main > form .updating path {
+  fill: #401B37;
+}
+@-webkit-keyframes tourner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes tourner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }/*# sourceMappingURL=style-update-infos-light.css.map */

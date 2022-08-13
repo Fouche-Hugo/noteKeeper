@@ -23,8 +23,8 @@
                             5 23.3696 5 30C5 36.6304 7.63392 42.9893 12.3223 47.6777C14.6438 49.9991 17.3998 51.8406 20.4329 53.097C23.4661 54.3534 26.717 55 30
                             55C36.6304 55 42.9893 52.3661 47.6777 47.6777C52.3661 42.9893 55 36.6304 55 30C55 16.175 43.75 5 30 5Z" fill="#32330D"/>
                         </svg>
-                        <div class="profil-name">NOM Prénom</div>
-                        <div class="profil-mail">adresse@mail.fr</div>
+                        <div class="profil-name"><?php echo $nom." ".$prenom;?></div>
+                        <div class="profil-mail"><?php echo $mail;?></div>
                         <a href="update-infos.php" class="informations-lien">Mettre à jour ses informations</a>
                         <a href="deconnexion.php" class="deconnexion-lien">Se déconnecter</a>
                     </div>

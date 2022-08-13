@@ -1,0 +1,169 @@
+$vert-fonce: #0C7003;
+$vert-clair: #1AB60C;
+
+.note-creation {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+
+    color: $blanc;
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2rem;
+
+    border: 1px solid $gris-clair;
+    border-radius: 0.8em;
+    padding: 0.5em 1em;
+    margin: auto;
+    margin-top: 2rem;
+
+    width: min(85%, 30rem);
+
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+
+    @media screen and (max-width: 460px) {
+        padding: 0.3em 0.2em;
+
+        width: min(95%, 30rem);
+    }
+
+    &:focus-within {
+        outline: 1px solid $blanc;
+    }
+
+    %entree-clavier {
+        border: none;
+        outline: none;
+        background: none;
+        color: $blanc;
+        caret-color: $blanc;
+        font: inherit;
+
+        width: 100%;
+        padding: 0;
+        margin: 0;
+
+        &::placeholder {
+            color: $gris-clair;
+        }
+    }
+
+    input {
+        @extend %entree-clavier;
+    }
+
+    textarea {
+        resize: none;
+        overflow: hidden;
+        @extend %entree-clavier;
+        font-size: 1.2rem;
+
+        height: 1.3rem;
+    }
+
+    .note-creation-titre {
+        padding: 0;
+        margin: 0;
+    }
+
+    .note-creation-footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        gap: 0.3em;
+
+        svg {
+            cursor: pointer;
+
+            path {
+                fill: $gris-clair;
+            }
+
+            &:hover {
+                path {
+                    fill: $blanc;
+                }
+            }
+        }
+
+        .note-creation-footer-validate {
+            svg {
+                path {
+                    fill: none;
+                    stroke: $vert-fonce;
+                }
+
+                &:hover {
+                    path {
+                        stroke: $vert-clair;
+                    }
+                }
+            }
+        }
+
+        .note-creation-footer-color-menu {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.3em;
+            
+            width: 100%;
+            padding: 0.2em;
+
+            border: 1px solid $gris-clair;
+            border-radius: 0.8em;
+
+            .note-creation-footer-color-menu-item {
+                cursor: pointer;
+                border: 1px solid $gris-clair;
+                border-radius: 0.8em;
+
+                height: 30px;
+                aspect-ratio: 1;
+
+                &.delete {
+                    border: none;
+                    path {
+                        stroke: $rouge-fonce;
+                        opacity: 0.8;
+                    }
+
+                    &:hover {
+                        path {
+                            stroke: $rouge;
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        .note-creation-footer-pin {
+            &.pinned {
+                path {
+                    fill: $blanc;
+                }
+            }
+        }
+
+        .note-creation-footer-delete {
+            svg {
+                path {
+                    stroke: $rouge-fonce;
+                    opacity: 0.8;
+                }
+
+                &:hover {
+                    path {
+                        stroke: $rouge;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+}

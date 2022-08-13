@@ -109,7 +109,7 @@ $rouge-fonce: #971313;
             &.erreur-serveur {
                 font-family: 'Nunito';
                 font-style: normal;
-                font-weight: 700;
+                font-weight: 500;
                 font-size: 1rem;
 
                 color: $blanc;
@@ -129,6 +129,7 @@ $rouge-fonce: #971313;
                     border-radius: 0.4em;
 
                     font: inherit;
+                    font-weight: 700;
 
                     cursor: pointer;
 

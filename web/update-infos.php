@@ -4,12 +4,12 @@ include 'php/update-infos_gestion.php';
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-    <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>NoteKeeper - Mettre à jour ses informations</title>
-            <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-            <link rel="stylesheet" href="css/style-header-light.css" id="style-mode">
-            <link rel="stylesheet" href="css/style-update-infos-light.css" id="style-mode2">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>NoteKeeper - Mettre à jour ses informations</title>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="css/style-header-light.css" id="style-mode">
+        <link rel="stylesheet" href="css/style-update-infos-light.css" id="style-mode2">
     </head>
     <body>
         <?php include 'parts/header.php'; ?>
@@ -27,8 +27,23 @@ include 'php/update-infos_gestion.php';
 
                 <h1>Mettre à jour ses informations</h1>
             </div>
-            <div class="main-main">
-                <form class="update-infos-form">
+            <div class="main-main" id="main-main">
+                <component v-for="comp in reponsesServeur" :is="comp.type" :message="comp.message"></component>
+
+                <?php if(isset($_GET['validation']) && $_GET['validation'] == 'motDePasse') {?>
+                    <validation-serveur message="Le mot de passe a bien été mis à jour"></validation-serveur>
+                <?php
+                } if(isset($_GET['erreur']) && $_GET['erreur'] == 'erreurBDD') {
+                ?>
+                    <erreur-serveur message="Erreur lors de l'envoi des données d'inscription. Veuillez rééessayer."></erreur-serveur>
+                <?php } else if(isset($_GET['erreur']) && $_GET['erreur'] == 'erreurTaille') {?>
+                    <erreur-serveur message="Des données envoyées ne respectent pas les critères demandés."></erreur-serveur>
+                <?php } else if(isset($_GET['erreur']) && $_GET['erreur'] == 'erreurAncienMotDePasse') {?>
+                    <erreur-serveur message="Le mot de passe entré n'est pas le bon"></erreur-serveur>
+                <?php } else if(isset($_GET['erreur']) && $_GET['erreur'] == 'erreurNouveauMotDePasse') {?>
+                    <erreur-serveur message="Les mots de passe entrés ne correspondent pas"></erreur-serveur>
+                <?php } ?>
+                <form class="update-infos-form" :class="{erreur: nom.length > 25}" id="form-update-nom" @submit.prevent>
                     <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M25 37.5H21.25C20.5872 37.4993 19.9517 37.2357 19.483 36.767C19.0143 36.2983 18.7507 35.6628 18.75
                         35V28.75H21.25V35H25V28.75H27.5V23.75C27.4997 23.4186 27.3679 23.1008 27.1335 22.8665C26.8992 22.6321 26.5814
@@ -63,8 +78,22 @@ include 'php/update-infos_gestion.php';
                         16.2863 23.4999 16.2492 23.8425 16.1073C24.1851 15.9654 24.478 15.725 24.684 15.4167C24.89 15.1084 25 14.7458 25 14.375C24.9993 13.8779 24.8016 13.4014 24.4501
                         13.0499C24.0986 12.6984 23.6221 12.5007 23.125 12.5Z" fill="#401B37"/>
                     </svg>
-                    <input type="text" name="nom" id="nom" placeholder="Nom" data-value="<?php echo $nom;?>" required v-model="nom">
-                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="update-button">
+                    <input type="text" name="nom" id="nom" placeholder="Nom" data-value="<?php echo $nom;?>" required v-model="nom" :disabled="nomUpdating">
+                    <span class="tooltip" v-if="nom.length > 25">
+                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 0C6.71484 0 0 6.71484 0 15C0 23.2852 6.71484 30 15 30C23.2852 30 30 23.2852 30 15C30 6.71484 23.2852 0 15 0ZM15 23.4375C13.9453 23.4375 13.125
+                            22.6172 13.125 21.5625C13.125 20.5078 13.8926 19.6875 15 19.6875C16.002 19.6875 16.875 20.5078 16.875 21.5625C16.875 22.6172 16.002 23.4375 15 23.4375ZM19.0488
+                            15.1172L16.4062 16.7578V16.875C16.4062 17.6367 15.7617 18.2812 15 18.2812C14.2383 18.2812 13.5938 17.6367 13.5938 16.875V15.9375C13.5938 15.4688 13.8281 15
+                            14.2969 14.707L17.6367 12.7148C18.0469 12.4805 18.2812 12.0703 18.2812 11.6016C18.2812 10.8984 17.6426 10.3125 16.9395 10.3125H13.9453C13.1895 10.3125 12.6562
+                            10.8984 12.6562 11.6016C12.6562 12.3633 12.0117 13.0078 11.25 13.0078C10.4883 13.0078 9.84375 12.3633 9.84375 11.6016C9.84375 9.31641 11.6602 7.5 13.8926
+                            7.5H16.8867C19.2773 7.5 21.0938 9.31641 21.0938 11.6016C21.0938 13.0078 20.332 14.3555 19.0488 15.1172Z" fill="black"/>
+                        </svg>
+                        <span class="tooltip-text">Le nom dépasse 25 caractères</span>
+                    </span>
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="check-indicator" v-else-if="nom === nomServeur">
+                        <path d="M5 15L12.5 22.5L25 7.5" stroke="#401B37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="updating" v-else-if="nomUpdating">
                         <rect width="30" height="30"/>
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M3.80605 14.594C3.80605 20.682 8.22005 24.83 13.178 25.688C13.3129 25.7114 13.4419 25.7611 13.5575
                         25.8343C13.6732 25.9075 13.7733 26.0028 13.8521 26.1147C13.9309 26.2266 13.987 26.3529 14.017 26.4864C14.047 26.62 14.0504 26.7581 14.027 26.893C14.0037
@@ -82,16 +111,40 @@ include 'php/update-infos_gestion.php';
                         19.936 19.2836 20.0414 19.4712 20.2289C19.6587 20.4164 19.764 20.6708 19.764 20.936V24.626H19.768C20.91 23.762 22.308 22.71 23.516 21.346C24.946 19.74 26.022 17.796
                         26.022 15.406Z" fill="#401B37"/>
                     </svg>
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" v-else @click="submitNouveauNom" class="update-button">
+                        <path d="M6.75 3C6.45163 3 6.16548 3.11853 5.9545 3.3295C5.74353 3.54048 5.625 3.82663 5.625 4.125C5.625 4.42337 5.74353 4.70952 5.9545 4.9205C6.16548 5.13147
+                        6.45163 5.25 6.75 5.25H22.5C22.7984 5.25 23.0845 5.13147 23.2955 4.9205C23.5065 4.70952 23.625 4.42337 23.625 4.125C23.625 3.82663 23.5065 3.54048 23.2955 3.3295C23.0845
+                        3.11853 22.7984 3 22.5 3H6.75ZM15.744 26.025C15.7051 26.3074 15.5606 26.5645 15.3394 26.7443C15.1183 26.9242 14.8372 27.0135 14.5528 26.994C14.2684 26.9746 14.0021 26.848
+                        13.8075 26.6397C13.6129 26.4314 13.5046 26.157 13.5045 25.872V10.587L9.045 15.0405L8.919 15.15C8.6907 15.3197 8.40658 15.3966 8.12385 15.3652C7.84112 15.3339 7.58076
+                        15.1966 7.3952 14.981C7.20963 14.7654 7.11264 14.4875 7.12373 14.2032C7.13483 13.919 7.25319 13.6495 7.455 13.449L13.89 7.02C14.0023 6.92161 14.1335 6.8471 14.2755
+                        6.801L14.3955 6.7665C14.47 6.75065 14.5459 6.7426 14.622 6.7425L14.712 6.7455L14.817 6.7575L14.997 6.8025L15.1335 6.8595L15.189 6.8895L15.324 6.9795L15.432 7.0725L21.795
+                        13.4475L21.9045 13.575C22.0644 13.7919 22.1411 14.0589 22.1207 14.3276C22.1004 14.5963 21.9843 14.8487 21.7935 15.039L21.6675 15.1485C21.4506 15.3084 21.1836 15.3851
+                        20.9149 15.3647C20.6462 15.3444 20.3938 15.2282 20.2035 15.0375L15.7545 10.5825V25.872L15.744 26.0235V26.025Z" fill="#401B37"/>
+                    </svg>
                 </form>
-                <form class="update-infos-form">
+                <form class="update-infos-form" :class="{erreur: prenom.length > 25}" id="form-update-prenom" @submit.prevent>
                     <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M25.4815 24.4615C25.2369 24.3815 23.6907 23.6846 24.6569 20.7477H24.643C27.1615 18.1539 29.0861 13.98 29.0861 9.87077C29.0861 3.55231 24.8846
                         0.240005 20.0015 0.240005C15.1154 0.240005 10.9369 3.55077 10.9369 9.87077C10.9369 13.9969 12.8507 18.1877 15.3846 20.7754C16.3723 23.3662 14.6061 24.3277
                         14.2369 24.4631C9.12305 26.3123 3.12305 29.6831 3.12305 33.0108V34.2585C3.12305 38.7923 11.9138 39.8231 20.0492 39.8231C28.1969 39.8231 36.8769 38.7923 36.8769
                         34.2585V33.0108C36.8769 29.5831 30.8477 26.2385 25.4815 24.4615Z" fill="#401B37"/>
                     </svg>
-                    <input type="text" name="prenom" id="prenom" placeholder="Prénom" data-value="<?php echo $prenom;?>" required v-model="prenom">
-                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="update-button">
+                    <input type="text" name="prenom" id="prenom" placeholder="Prénom" data-value="<?php echo $prenom;?>" required v-model="prenom" :disabled="prenomUpdating">
+                    <span class="tooltip" v-if="prenom.length > 25">
+                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 0C6.71484 0 0 6.71484 0 15C0 23.2852 6.71484 30 15 30C23.2852 30 30 23.2852 30 15C30 6.71484 23.2852 0 15 0ZM15 23.4375C13.9453 23.4375 13.125
+                            22.6172 13.125 21.5625C13.125 20.5078 13.8926 19.6875 15 19.6875C16.002 19.6875 16.875 20.5078 16.875 21.5625C16.875 22.6172 16.002 23.4375 15 23.4375ZM19.0488
+                            15.1172L16.4062 16.7578V16.875C16.4062 17.6367 15.7617 18.2812 15 18.2812C14.2383 18.2812 13.5938 17.6367 13.5938 16.875V15.9375C13.5938 15.4688 13.8281 15
+                            14.2969 14.707L17.6367 12.7148C18.0469 12.4805 18.2812 12.0703 18.2812 11.6016C18.2812 10.8984 17.6426 10.3125 16.9395 10.3125H13.9453C13.1895 10.3125 12.6562
+                            10.8984 12.6562 11.6016C12.6562 12.3633 12.0117 13.0078 11.25 13.0078C10.4883 13.0078 9.84375 12.3633 9.84375 11.6016C9.84375 9.31641 11.6602 7.5 13.8926
+                            7.5H16.8867C19.2773 7.5 21.0938 9.31641 21.0938 11.6016C21.0938 13.0078 20.332 14.3555 19.0488 15.1172Z" fill="black"/>
+                        </svg>
+                        <span class="tooltip-text">Le prénom dépasse 25 caractères</span>
+                    </span>
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="check-indicator" v-else-if="prenom === prenomServeur">
+                        <path d="M5 15L12.5 22.5L25 7.5" stroke="#401B37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="updating" v-else-if="prenomUpdating">
                         <rect width="30" height="30"/>
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M3.80605 14.594C3.80605 20.682 8.22005 24.83 13.178 25.688C13.3129 25.7114 13.4419 25.7611 13.5575
                         25.8343C13.6732 25.9075 13.7733 26.0028 13.8521 26.1147C13.9309 26.2266 13.987 26.3529 14.017 26.4864C14.047 26.62 14.0504 26.7581 14.027 26.893C14.0037
@@ -109,15 +162,41 @@ include 'php/update-infos_gestion.php';
                         19.936 19.2836 20.0414 19.4712 20.2289C19.6587 20.4164 19.764 20.6708 19.764 20.936V24.626H19.768C20.91 23.762 22.308 22.71 23.516 21.346C24.946 19.74 26.022 17.796
                         26.022 15.406Z" fill="#401B37"/>
                     </svg>
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" v-else @click="submitNouveauPrenom" class="update-button">
+                        <path d="M6.75 3C6.45163 3 6.16548 3.11853 5.9545 3.3295C5.74353 3.54048 5.625 3.82663 5.625 4.125C5.625 4.42337 5.74353 4.70952 5.9545 4.9205C6.16548 5.13147
+                        6.45163 5.25 6.75 5.25H22.5C22.7984 5.25 23.0845 5.13147 23.2955 4.9205C23.5065 4.70952 23.625 4.42337 23.625 4.125C23.625 3.82663 23.5065 3.54048 23.2955 3.3295C23.0845
+                        3.11853 22.7984 3 22.5 3H6.75ZM15.744 26.025C15.7051 26.3074 15.5606 26.5645 15.3394 26.7443C15.1183 26.9242 14.8372 27.0135 14.5528 26.994C14.2684 26.9746 14.0021 26.848
+                        13.8075 26.6397C13.6129 26.4314 13.5046 26.157 13.5045 25.872V10.587L9.045 15.0405L8.919 15.15C8.6907 15.3197 8.40658 15.3966 8.12385 15.3652C7.84112 15.3339 7.58076
+                        15.1966 7.3952 14.981C7.20963 14.7654 7.11264 14.4875 7.12373 14.2032C7.13483 13.919 7.25319 13.6495 7.455 13.449L13.89 7.02C14.0023 6.92161 14.1335 6.8471 14.2755
+                        6.801L14.3955 6.7665C14.47 6.75065 14.5459 6.7426 14.622 6.7425L14.712 6.7455L14.817 6.7575L14.997 6.8025L15.1335 6.8595L15.189 6.8895L15.324 6.9795L15.432 7.0725L21.795
+                        13.4475L21.9045 13.575C22.0644 13.7919 22.1411 14.0589 22.1207 14.3276C22.1004 14.5963 21.9843 14.8487 21.7935 15.039L21.6675 15.1485C21.4506 15.3084 21.1836 15.3851
+                        20.9149 15.3647C20.6462 15.3444 20.3938 15.2282 20.2035 15.0375L15.7545 10.5825V25.872L15.744 26.0235V26.025Z" fill="#401B37"/>
+                    </svg>
                 </form>
-                <form class="update-infos-form">
+                <form class="update-infos-form" :class="{erreur: email.length > 25 || !verificationAdresseMail()}" id="form-update-email" @submit.prevent>
                     <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M33.3333 13.3333L19.9999 21.6667L6.66659 13.3333V10L19.9999 18.3333L33.3333 10M33.3333 6.66666H6.66659C4.81659 6.66666 3.33325 8.15 3.33325
                         10V30C3.33325 30.8841 3.68444 31.7319 4.30956 32.357C4.93468 32.9821 5.78253 33.3333 6.66659 33.3333H33.3333C34.2173 33.3333 35.0652 32.9821 35.6903
                         32.357C36.3154 31.7319 36.6666 30.8841 36.6666 30V10C36.6666 9.11594 36.3154 8.2681 35.6903 7.64297C35.0652 7.01785 34.2173 6.66666 33.3333 6.66666Z" fill="#401B37"/>
                     </svg>
-                    <input type="email" name="mail" id="mail" placeholder="Adresse mail" data-value="<?php echo $mail;?>" required v-model="email">
-                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="update-button">
+                    <input type="email" name="mail" id="mail" placeholder="Adresse mail" data-value="<?php echo $mail;?>" required v-model="email" :disabled="emailUpdating">
+                    <span class="tooltip" v-if="email.length > 25 || !verificationAdresseMail()">
+                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 0C6.71484 0 0 6.71484 0 15C0 23.2852 6.71484 30 15 30C23.2852 30 30 23.2852 30 15C30 6.71484 23.2852 0 15 0ZM15 23.4375C13.9453 23.4375 13.125
+                            22.6172 13.125 21.5625C13.125 20.5078 13.8926 19.6875 15 19.6875C16.002 19.6875 16.875 20.5078 16.875 21.5625C16.875 22.6172 16.002 23.4375 15 23.4375ZM19.0488
+                            15.1172L16.4062 16.7578V16.875C16.4062 17.6367 15.7617 18.2812 15 18.2812C14.2383 18.2812 13.5938 17.6367 13.5938 16.875V15.9375C13.5938 15.4688 13.8281 15
+                            14.2969 14.707L17.6367 12.7148C18.0469 12.4805 18.2812 12.0703 18.2812 11.6016C18.2812 10.8984 17.6426 10.3125 16.9395 10.3125H13.9453C13.1895 10.3125 12.6562
+                            10.8984 12.6562 11.6016C12.6562 12.3633 12.0117 13.0078 11.25 13.0078C10.4883 13.0078 9.84375 12.3633 9.84375 11.6016C9.84375 9.31641 11.6602 7.5 13.8926
+                            7.5H16.8867C19.2773 7.5 21.0938 9.31641 21.0938 11.6016C21.0938 13.0078 20.332 14.3555 19.0488 15.1172Z" fill="black"/>
+                        </svg>
+                        <span class="tooltip-text" v-if="email.length > 25 && !verificationAdresseMail()">L'adresse email dépasse 25 caractères<br>L'adresse email n'est pas valide</span>
+                        <span class="tooltip-text" v-else-if="email.length > 25">L'adresse email dépasse 25 caractères</span>
+                        <span class="tooltip-text" v-else>L'adresse email n'est pas valide</span>
+                    </span>
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="check-indicator" v-else-if="email === emailServeur">
+                        <path d="M5 15L12.5 22.5L25 7.5" stroke="#401B37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="updating" v-else-if="emailUpdating">
                         <rect width="30" height="30"/>
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M3.80605 14.594C3.80605 20.682 8.22005 24.83 13.178 25.688C13.3129 25.7114 13.4419 25.7611 13.5575
                         25.8343C13.6732 25.9075 13.7733 26.0028 13.8521 26.1147C13.9309 26.2266 13.987 26.3529 14.017 26.4864C14.047 26.62 14.0504 26.7581 14.027 26.893C14.0037
@@ -135,8 +214,18 @@ include 'php/update-infos_gestion.php';
                         19.936 19.2836 20.0414 19.4712 20.2289C19.6587 20.4164 19.764 20.6708 19.764 20.936V24.626H19.768C20.91 23.762 22.308 22.71 23.516 21.346C24.946 19.74 26.022 17.796
                         26.022 15.406Z" fill="#401B37"/>
                     </svg>
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" v-else @click="submitNouveauEmail" class="update-button">
+                        <path d="M6.75 3C6.45163 3 6.16548 3.11853 5.9545 3.3295C5.74353 3.54048 5.625 3.82663 5.625 4.125C5.625 4.42337 5.74353 4.70952 5.9545 4.9205C6.16548 5.13147
+                        6.45163 5.25 6.75 5.25H22.5C22.7984 5.25 23.0845 5.13147 23.2955 4.9205C23.5065 4.70952 23.625 4.42337 23.625 4.125C23.625 3.82663 23.5065 3.54048 23.2955 3.3295C23.0845
+                        3.11853 22.7984 3 22.5 3H6.75ZM15.744 26.025C15.7051 26.3074 15.5606 26.5645 15.3394 26.7443C15.1183 26.9242 14.8372 27.0135 14.5528 26.994C14.2684 26.9746 14.0021 26.848
+                        13.8075 26.6397C13.6129 26.4314 13.5046 26.157 13.5045 25.872V10.587L9.045 15.0405L8.919 15.15C8.6907 15.3197 8.40658 15.3966 8.12385 15.3652C7.84112 15.3339 7.58076
+                        15.1966 7.3952 14.981C7.20963 14.7654 7.11264 14.4875 7.12373 14.2032C7.13483 13.919 7.25319 13.6495 7.455 13.449L13.89 7.02C14.0023 6.92161 14.1335 6.8471 14.2755
+                        6.801L14.3955 6.7665C14.47 6.75065 14.5459 6.7426 14.622 6.7425L14.712 6.7455L14.817 6.7575L14.997 6.8025L15.1335 6.8595L15.189 6.8895L15.324 6.9795L15.432 7.0725L21.795
+                        13.4475L21.9045 13.575C22.0644 13.7919 22.1411 14.0589 22.1207 14.3276C22.1004 14.5963 21.9843 14.8487 21.7935 15.039L21.6675 15.1485C21.4506 15.3084 21.1836 15.3851
+                        20.9149 15.3647C20.6462 15.3444 20.3938 15.2282 20.2035 15.0375L15.7545 10.5825V25.872L15.744 26.0235V26.025Z" fill="#401B37"/>
+                    </svg>
                 </form>
-                <form class="password-form">
+                <form class="password-form" @submit.prevent="submitNouveauMotDePasse" method="post">
                     <div class="update-infos-input-container">
                         <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20.0001 28.3333C20.8841 28.3333 21.732 27.9821 22.3571 27.357C22.9822 26.7319 23.3334 25.8841 23.3334 25C23.3334 24.1159 22.9822 23.2681 22.3571
@@ -151,7 +240,7 @@ include 'php/update-infos_gestion.php';
                         </svg>
                         <input type="password" name="ancienMotDePasse" placeholder="Ancien mot de passe" required v-model="ancienMotDePasse">
                     </div>
-                    <div class="update-infos-input-container">
+                    <div class="update-infos-input-container" :class="{erreur: nouveauMotDePasse.length > 25 || (nouveauMotDePasse.length < 8 && nouveauMotDePasse.length > 0)}">
                         <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20.0001 28.3333C20.8841 28.3333 21.732 27.9821 22.3571 27.357C22.9822 26.7319 23.3334 25.8841 23.3334 25C23.3334 24.1159 22.9822 23.2681 22.3571
                             22.643C21.732 22.0179 20.8841 21.6667 20.0001 21.6667C19.116 21.6667 18.2682 22.0179 17.6431 22.643C17.0179 23.2681 16.6667 24.1159 16.6667 25C16.6667 25.8841
@@ -164,8 +253,20 @@ include 'php/update-infos_gestion.php';
                             7.40215 23.5356 6.46447C22.5979 5.52678 21.3262 5 20.0001 5Z" fill="#401B37"/>
                         </svg>
                         <input type="password" name="nouveauMotDePasse" placeholder="Nouveau mot de passe" required v-model="nouveauMotDePasse">
+                        <span class="tooltip">
+                            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15 0C6.71484 0 0 6.71484 0 15C0 23.2852 6.71484 30 15 30C23.2852 30 30 23.2852 30 15C30 6.71484 23.2852 0 15 0ZM15 23.4375C13.9453 23.4375 13.125
+                                22.6172 13.125 21.5625C13.125 20.5078 13.8926 19.6875 15 19.6875C16.002 19.6875 16.875 20.5078 16.875 21.5625C16.875 22.6172 16.002 23.4375 15 23.4375ZM19.0488
+                                15.1172L16.4062 16.7578V16.875C16.4062 17.6367 15.7617 18.2812 15 18.2812C14.2383 18.2812 13.5938 17.6367 13.5938 16.875V15.9375C13.5938 15.4688 13.8281 15
+                                14.2969 14.707L17.6367 12.7148C18.0469 12.4805 18.2812 12.0703 18.2812 11.6016C18.2812 10.8984 17.6426 10.3125 16.9395 10.3125H13.9453C13.1895 10.3125 12.6562
+                                10.8984 12.6562 11.6016C12.6562 12.3633 12.0117 13.0078 11.25 13.0078C10.4883 13.0078 9.84375 12.3633 9.84375 11.6016C9.84375 9.31641 11.6602 7.5 13.8926
+                                7.5H16.8867C19.2773 7.5 21.0938 9.31641 21.0938 11.6016C21.0938 13.0078 20.332 14.3555 19.0488 15.1172Z" fill="black"/>
+                            </svg>
+                            <span class="tooltip-text" v-if="nouveauMotDePasse.length > 25">Le mot de passe dépasse 25 caractères</span>
+                            <span class="tooltip-text" v-else>Le mot de passe fait moins de 8 caractères</span>
+                        </span>
                     </div>
-                    <div class="update-infos-input-container">
+                    <div class="update-infos-input-container" :class="{erreur: nouveauMotDePasse2.length > 0 && nouveauMotDePasse2 != nouveauMotDePasse}">
                         <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20.0001 28.3333C20.8841 28.3333 21.732 27.9821 22.3571 27.357C22.9822 26.7319 23.3334 25.8841 23.3334 25C23.3334 24.1159 22.9822 23.2681 22.3571
                             22.643C21.732 22.0179 20.8841 21.6667 20.0001 21.6667C19.116 21.6667 18.2682 22.0179 17.6431 22.643C17.0179 23.2681 16.6667 24.1159 16.6667 25C16.6667 25.8841
@@ -178,6 +279,17 @@ include 'php/update-infos_gestion.php';
                             7.40215 23.5356 6.46447C22.5979 5.52678 21.3262 5 20.0001 5Z" fill="#401B37"/>
                         </svg>
                         <input type="password" name="nouveauMotDePasse2" placeholder="Vérification du nouveau mot de passe" required v-model="nouveauMotDePasse2">
+                        <span class="tooltip">
+                            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15 0C6.71484 0 0 6.71484 0 15C0 23.2852 6.71484 30 15 30C23.2852 30 30 23.2852 30 15C30 6.71484 23.2852 0 15 0ZM15 23.4375C13.9453 23.4375 13.125
+                                22.6172 13.125 21.5625C13.125 20.5078 13.8926 19.6875 15 19.6875C16.002 19.6875 16.875 20.5078 16.875 21.5625C16.875 22.6172 16.002 23.4375 15 23.4375ZM19.0488
+                                15.1172L16.4062 16.7578V16.875C16.4062 17.6367 15.7617 18.2812 15 18.2812C14.2383 18.2812 13.5938 17.6367 13.5938 16.875V15.9375C13.5938 15.4688 13.8281 15
+                                14.2969 14.707L17.6367 12.7148C18.0469 12.4805 18.2812 12.0703 18.2812 11.6016C18.2812 10.8984 17.6426 10.3125 16.9395 10.3125H13.9453C13.1895 10.3125 12.6562
+                                10.8984 12.6562 11.6016C12.6562 12.3633 12.0117 13.0078 11.25 13.0078C10.4883 13.0078 9.84375 12.3633 9.84375 11.6016C9.84375 9.31641 11.6602 7.5 13.8926
+                                7.5H16.8867C19.2773 7.5 21.0938 9.31641 21.0938 11.6016C21.0938 13.0078 20.332 14.3555 19.0488 15.1172Z" fill="black"/>
+                            </svg>
+                            <span class="tooltip-text">Les mots de passe ne sont pas identiques</span>
+                        </span>
                     </div>
                     <button type="submit" class="update-infos-submit-button">Mettre à jour le mot de passe</button>
                 </form>

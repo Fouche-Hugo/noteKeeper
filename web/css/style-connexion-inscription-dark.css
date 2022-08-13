@@ -79,7 +79,7 @@
 .form-connexion .main-connexion > div.erreur-serveur {
   font-family: "Nunito";
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 1rem;
   color: #FCFCFF;
   background-color: #ED1D20;
@@ -95,6 +95,7 @@
   border: none;
   border-radius: 0.4em;
   font: inherit;
+  font-weight: 700;
   cursor: pointer;
 }
 .form-connexion .main-connexion > div.erreur-serveur button:hover {
