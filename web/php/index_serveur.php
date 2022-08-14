@@ -121,6 +121,128 @@ if(isset($_SESSION['utilisateur'])) {
         } else {
             echo json_encode(['status' => 'erreurBDD']);
         }
+    } else if(isset($_POST['majNote']) && $_POST['majNote'] == 1) {
+        if(!empty($_POST['couleurFond']) && !empty($_POST['dateCreation'])) {
+            $couleurFond = valid_donnees($_POST['couleurFond']);
+            $dateCreation = valid_donnees($_POST['dateCreation']);
+            
+            $idCouleurFond = 0;
+            //On vérifie si la couleur de fond existe dans la base de données
+            if($req = $db->prepare('SELECT * FROM couleur WHERE code = ?')) {
+                $req->bind_param('s', $couleurFond);
+                $req->execute();
+                $req->store_result();
+                $req->bind_result($id, $couleur);
+                $req->fetch();
+                //Si la couleur de fond n'existe pas, on l'ajoute
+                if($req->num_rows == 0) {
+                    if($req2 = $db->prepare('INSERT INTO couleur (code) VALUES (?)')) {
+                        $req2->bind_param('s', $couleurFond);
+                        $req2->execute();
+                        $req2->close();
+                        $idCouleurFond = $db->insert_id;
+                    } else {
+                        echo json_encode(['status' => 'erreurBDD-couleurFond']);
+                    }
+                } else {
+                    //sinon, on récupère l'id de la couleur de fond
+                    $idCouleurFond = $id;
+                }
+                $req->close();
+
+                //On met à jour la note dans la base de données
+                if($req = $db->prepare('UPDATE note SET couleurFond = ? WHERE dateCreation = ? AND utilisateur = ?')) {
+                    $req->bind_param('isi', $idCouleurFond, $dateCreation, $_SESSION['utilisateur']);
+                    $req->execute();
+                    $req->close();
+                    echo json_encode(['status' => 'sucess']);
+                } else {
+                    echo json_encode(['status' => 'erreurBDD']);
+                }
+            } else {
+                echo json_encode(['status' => 'erreurBDD-couleurFond2']);
+            }
+        } else if(!empty($_POST['couleurTexte']) && !empty($_POST['dateCreation'])) {
+            $couleurTexte = valid_donnees($_POST['couleurTexte']);
+            $dateCreation = valid_donnees($_POST['dateCreation']);
+            
+            $idCouleurTexte = 0;
+            //On vérifie si la couleur de texte existe dans la base de données
+            if($req = $db->prepare('SELECT * FROM couleur WHERE code = ?')) {
+                $req->bind_param('s', $couleurTexte);
+                $req->execute();
+                $req->store_result();
+                $req->bind_result($id, $couleur);
+                $req->fetch();
+                //Si la couleur de texte n'existe pas, on l'ajoute
+                if($req->num_rows == 0) {
+                    if($req2 = $db->prepare('INSERT INTO couleur (code) VALUES (?)')) {
+                        $req2->bind_param('s', $couleurTexte);
+                        $req2->execute();
+                        $req2->close();
+                        $idCouleurTexte = $db->insert_id;
+                    } else {
+                        echo json_encode(['status' => 'erreurBDD-couleurTexte']);
+                    }
+                } else {
+                    //sinon, on récupère l'id de la couleur de texte
+                    $idCouleurTexte = $id;
+                }
+                $req->close();
+                //On met à jour la note dans la base de données
+                if($req = $db->prepare('UPDATE note SET couleurTexte = ? WHERE dateCreation = ? AND utilisateur = ?')) {
+                    $req->bind_param('isi', $idCouleurTexte, $dateCreation, $_SESSION['utilisateur']);
+                    $req->execute();
+                    $req->close();
+                    echo json_encode(['status' => 'sucess']);
+                } else {
+                    echo json_encode(['status' => 'erreurBDD']);
+                }
+            } else {
+                echo json_encode(['status' => 'erreurBDD-couleurTexte2']);
+            }
+        } else if(!empty($_POST['etat']) && !empty($_POST['dateCreation'])) {
+            $etat = valid_donnees($_POST['etat']);
+            $dateCreation = valid_donnees($_POST['dateCreation']);
+            
+            //On met à jour la note dans la base de données
+            if($req = $db->prepare('UPDATE note SET etat = ? WHERE dateCreation = ? AND utilisateur = ?')) {
+                $req->bind_param('ssi', $etat, $dateCreation, $_SESSION['utilisateur']);
+                $req->execute();
+                $req->close();
+                echo json_encode(['status' => 'sucess']);
+            } else {
+                echo json_encode(['status' => 'erreurBDD']);
+            }
+        } else if(!empty($_POST['titre']) && !empty($_POST['dateCreation'])) {
+            $titre = valid_donnees($_POST['titre']);
+            $dateCreation = valid_donnees($_POST['dateCreation']);
+            
+            //On met à jour la note dans la base de données
+            if($req = $db->prepare('UPDATE note SET titre = ? WHERE dateCreation = ? AND utilisateur = ?')) {
+                $req->bind_param('ssi', $titre, $dateCreation, $_SESSION['utilisateur']);
+                $req->execute();
+                $req->close();
+                echo json_encode(['status' => 'sucess']);
+            } else {
+                echo json_encode(['status' => 'erreurBDD']);
+            }
+        } else if(!empty($_POST['texte']) && !empty($_POST['dateCreation'])) {
+            $texte = valid_donnees($_POST['texte']);
+            $dateCreation = valid_donnees($_POST['dateCreation']);
+            
+            //On met à jour la note dans la base de données
+            if($req = $db->prepare('UPDATE note SET texte = ? WHERE dateCreation = ? AND utilisateur = ?')) {
+                $req->bind_param('ssi', $texte, $dateCreation, $_SESSION['utilisateur']);
+                $req->execute();
+                $req->close();
+                echo json_encode(['status' => 'sucess']);
+            } else {
+                echo json_encode(['status' => 'erreurBDD']);
+            }
+        } else {
+            echo json_encode(['status' => 'erreurDonnees']);
+        }
     }
 } else {
     echo json_encode(['status' => 'erreurUser']);

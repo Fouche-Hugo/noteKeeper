@@ -352,9 +352,41 @@ header > div > div .close-profil-menu > div:hover::after {
 }
 .note .note-header {
   text-align: center;
+  color: inherit;
+}
+.note .note-header.editing {
+  border: none;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+.note .note-header.editing:focus {
+  outline: none;
 }
 .note .note-content {
   font-size: 1.3rem;
+  color: inherit;
+}
+.note .note-content.editing {
+  border: none;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: inherit;
+  background: none;
+  padding: 0;
+  margin: 0;
+  resize: none;
+  overflow: hidden;
+}
+.note .note-content.editing:focus {
+  outline: none;
 }
 .note .note-date {
   font-size: 0.8rem;
@@ -439,11 +471,48 @@ header > div > div .close-profil-menu > div:hover::after {
 .note .note-footer .note-footer-button.pinned svg path {
   fill: #401B37;
 }
+.note .note-footer .note-footer-button.note-footer-edit svg path {
+  stroke: #786774;
+  fill: none;
+}
+.note .note-footer .note-footer-button.note-footer-edit:hover svg path {
+  stroke: #401B37;
+}
 .note .note-footer .note-footer-button.note-footer-delete svg path {
   stroke: #971313;
   opacity: 0.8;
 }
 .note .note-footer .note-footer-button.note-footer-delete svg:hover path {
+  stroke: #ED1D20;
+  opacity: 1;
+}
+.note .note-footer .note-footer-color-menu {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.3em;
+  width: 100%;
+  padding: 0.2em;
+  border: 1px solid #786774;
+  border-radius: 0.8em;
+}
+.note .note-footer .note-footer-color-menu .note-footer-color-menu-item {
+  cursor: pointer;
+  border: 1px solid #786774;
+  border-radius: 0.8em;
+  height: 30px;
+  aspect-ratio: 1;
+}
+.note .note-footer .note-footer-color-menu .note-footer-color-menu-item.delete {
+  border: none;
+}
+.note .note-footer .note-footer-color-menu .note-footer-color-menu-item.delete path {
+  stroke: #971313;
+  opacity: 0.8;
+}
+.note .note-footer .note-footer-color-menu .note-footer-color-menu-item.delete:hover path {
   stroke: #ED1D20;
   opacity: 1;
 }/*# sourceMappingURL=style-index-light.css.map */

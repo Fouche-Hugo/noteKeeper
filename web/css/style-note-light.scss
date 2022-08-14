@@ -29,10 +29,49 @@ $vert-clair: #1AB60C;
 
     .note-header {
         text-align: center;
+        color: inherit;
+
+        &.editing {
+            border: none;
+            font-family: 'Nunito';
+            font-style: normal;
+            font-weight: 600;
+            font-size: inherit;
+            color: inherit;
+            background: none;
+
+            padding: 0;
+            margin: 0;
+
+            &:focus {
+                outline: none;
+            }
+        }
     }
 
     .note-content {
         font-size: 1.3rem;
+        color: inherit;
+
+        &.editing {
+            border: none;
+            font-family: 'Nunito';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: inherit;
+            background: none;
+            
+            padding: 0;
+            margin: 0;
+
+            resize: none;
+            overflow: hidden;
+
+            &:focus {
+                outline: none;
+            }
+        }
     }
 
     .note-date {
@@ -149,6 +188,23 @@ $vert-clair: #1AB60C;
                 }
             }
 
+            &.note-footer-edit {
+                svg {
+                    path {
+                        stroke: $violet-gris;
+                        fill: none;
+                    }
+                }
+
+                &:hover {
+                    svg {
+                        path {
+                            stroke: $violet;
+                        }
+                    }
+                }
+            }
+
             &.note-footer-delete {
                 svg {
                     path {
@@ -156,6 +212,45 @@ $vert-clair: #1AB60C;
                         opacity: 0.8;
                     }
     
+                    &:hover {
+                        path {
+                            stroke: $rouge;
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        .note-footer-color-menu {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.3em;
+
+            width: 100%;
+            padding: 0.2em;
+            
+            border: 1px solid $violet-gris;
+            border-radius: 0.8em;
+
+            .note-footer-color-menu-item {
+                cursor: pointer;
+                border: 1px solid $violet-gris;
+                border-radius: 0.8em;
+
+                height: 30px;
+                aspect-ratio: 1;
+
+                &.delete {
+                    border: none;
+                    path {
+                        stroke: $rouge-fonce;
+                        opacity: 0.8;
+                    }
+
                     &:hover {
                         path {
                             stroke: $rouge;

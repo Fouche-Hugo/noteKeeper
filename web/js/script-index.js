@@ -54,7 +54,6 @@ window.onload = function () {
                     body: infos
                 })
                 .then(function(response) {
-                    console.log(response);
                     if(response.ok) {
                         return response.json();
                     }
@@ -65,10 +64,9 @@ window.onload = function () {
                             let note = {titre: data.notes[i].titre, texte: data.notes[i].texte, etat: data.notes[i].etat, dateCreation: data.notes[i].dateCreation,
                                 dateModification: data.notes[i].dateModification, couleurFond: data.notes[i].couleurFond, couleurTexte: data.notes[i].couleurTexte};
                             this.notes.push(note);
-                            console.log(note);
                         }
                     } else {
-                        console.log(data.status);
+                        console.log("impossible de récupérer les données des notes");
                     }
                 });
             }
@@ -226,7 +224,6 @@ window.onload = function () {
                     method: "POST",
                     body: infosNote
                 }).then(function(response) {
-                    console.log(response);
                     if(response.ok) {
                         return response.json();
                     }
@@ -235,7 +232,6 @@ window.onload = function () {
                         console.log("Impossible d'ajouter une note pour l'instant. Veuillez réessayer plus tard.");
                     } else if(data.status == 'sucess') {
                         console.log("La note a été upload");
-                        console.log(data.idNote)
                     } else {
                         //Si on a pas eu de réponses, on renvoie une erreur
                         console.log(data.status);
@@ -247,9 +243,11 @@ window.onload = function () {
 
     vue.component('note', {
         template: `
-            <div class="note" :style="{background: couleurFond, color: couleurTexte}">
-                <div class="note-header">{{titre}}</div>
-                <div class="note-content">{{texte}}</div>
+            <div class="note" :style="{background: couleurFond}">
+                <input class="note-header editing" v-model="titreEdit" v-if="editingMode" :style="{color: couleurTexte}" @input="updateTitre"/>
+                <div class="note-header" v-else :style="{color: couleurTexte}" >{{titre}}</div>
+                <textarea class="note-content editing" v-model="texteEdit" v-if="editingMode" @input="updateHeightTextArea" :style="{color: couleurTexte}" ></textarea>
+                <div class="note-content" v-else :style="{color: couleurTexte}" >{{texte}}</div>
                 <div class="note-date">Date de création : {{dateCreation}}<br>Date de dernière modification : {{dateModification}}</div>
                 <div class="note-footer" :class="footerState">
                     <div class="note-footer-hamburger-button" @click="switchFooterState" :class="footerState">
@@ -257,7 +255,20 @@ window.onload = function () {
                         <div class="note-footer-hamburger-button-middle"></div>
                         <div class="note-footer-hamburger-button-bottom"></div>
                     </div>
-                    <div class="note-footer-button note-footer-background-color" @click="updateSecondaryFooterState('backgroundColor')" v-if="footerState === 'open'" :class="{visible: backgroundColorButtonVisibility}">
+                    <div class="note-footer-button note-footer-edit" @click="switchEditingMode" v-if="footerState === 'open' && secondaryFooterState === 'none'" :class="{visible: editButtonVisibility}">
+                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.5925 6.76L23.24 9.40625M22.295 4.42875L15.1363 11.5875C14.7664 11.9569 14.5141 12.4275 14.4113 12.94L13.75 16.25L17.06 15.5875C17.5725 15.485
+                                18.0425 15.2337 18.4125 14.8637L25.5713 7.705C25.7864 7.48988 25.957 7.23449 26.0734 6.95342C26.1899 6.67235 26.2498 6.3711 26.2498 6.06687C26.2498 5.76264
+                                26.1899 5.4614 26.0734 5.18033C25.957 4.89926 25.7864 4.64387 25.5713 4.42875C25.3561 4.21363 25.1007 4.04298 24.8197 3.92656C24.5386 3.81014 24.2374
+                                3.75021 23.9331 3.75021C23.6289 3.75021 23.3276 3.81014 23.0466 3.92656C22.7655 4.04298 22.5101 4.21363 22.295 4.42875V4.42875Z" stroke="black"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M23.75 18.75V22.5C23.75 23.163 23.4866 23.7989 23.0178 24.2678C22.5489 24.7366 21.913 25 21.25 25H7.5C6.83696 25 6.20107 24.7366 5.73223
+                                24.2678C5.26339 23.7989 5 23.163 5 22.5V8.75C5 8.08696 5.26339 7.45107 5.73223 6.98223C6.20107 6.51339 6.83696 6.25 7.5 6.25H11.25" stroke="black"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>                    
+                    </div>
+                    <div class="note-footer-button note-footer-background-color" @click="updateSecondaryFooterState('backgroundColor')" v-if="footerState === 'open' && secondaryFooterState === 'none'"
+                        :class="{visible: backgroundColorButtonVisibility}">
                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M25 17.4975C24.885 17.5787 22.5 20.1012 22.5 21.8725C22.5 23.74 23.6863 24.9325 25 24.9975C26.1325 25.0525 27.5 23.8837 27.5 21.8725C27.5
                                 19.9975 25.115 17.5787 25 17.4975V17.4975ZM4.26752 16.2475C4.26752 16.915 4.52752 17.5425 5.00002 18.015L11.9825 24.9975C12.455 25.47 13.0825
@@ -266,7 +277,15 @@ window.onload = function () {
                                 16.2475L13.75 9.265Z" fill="#401B37"/>
                         </svg>
                     </div>
-                    <div class="note-footer-button note-footer-text-color" @click="updateSecondaryFooterState('textColor')" v-if="footerState === 'open'" :class="{visible: textColorButtonVisibility}">
+                    <div class="note-footer-color-menu" v-if="secondaryFooterState === 'backgroundColor'">
+                        <div class="note-footer-color-menu-item" @click="updateBackgroundColor('transparent')" :style="{background: '#1C1823'}" v-if="mode === 'dark'"></div>
+                        <div class="note-footer-color-menu-item" @click="updateBackgroundColor('transparent')" :style="{background: '#FCFCFF'}" v-if="mode === 'light'"></div>
+                        <div class="note-footer-color-menu-item" v-for="color in colors" @click="updateBackgroundColor(color)" :style="{background: color}"></div>
+                        <svg class="note-footer-color-menu-item delete" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" @click="updateSecondaryFooterState('none')">
+                            <path d="M25 25L5 5M25 5L5 25" stroke="#401B37" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="note-footer-button note-footer-text-color" @click="updateSecondaryFooterState('textColor')" v-if="footerState === 'open' && secondaryFooterState === 'none'" :class="{visible: textColorButtonVisibility}">
                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M24.425 6.35C23.1717 5.10553 21.6824 4.12393 20.0447 3.4628C18.4069 2.80167 16.6535 2.47434 14.8875 2.5C11.5723 2.49171 8.38957
                             3.80072 6.0395 6.13907C3.68944 8.47741 2.36453 11.6535 2.35624 14.9688C2.34795 18.284 3.65696 21.4667 5.99531 23.8167C8.33365 26.1668 11.5098
@@ -291,7 +310,15 @@ window.onload = function () {
                             9.75V9.75Z" fill="#401B37"/>
                         </svg>                
                     </div>
-                    <div class="note-footer-button note-footer-pin" v-if="footerState === 'open'" :class="{pinned: pinned}" @click="switchPinnedState" :class="{visible: pinnedButtonVisibility}">
+                    <div class="note-footer-color-menu" v-if="secondaryFooterState === 'textColor'">
+                        <div class="note-footer-color-menu-item" @click="updateTextColor('inherit')" :style="{background: '#FCFCFF'}" v-if="mode === 'dark'"></div>
+                        <div class="note-footer-color-menu-item" @click="updateTextColor('inherit')" :style="{background: '#401B37'}" v-if="mode === 'light'"></div>
+                        <div class="note-footer-color-menu-item" v-for="color in colors" @click="updateTextColor(color)" :style="{background: color}"></div>
+                        <svg class="note-footer-color-menu-item delete" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" @click="updateSecondaryFooterState('none')">
+                            <path d="M25 25L5 5M25 5L5 25" stroke="#401B37" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="note-footer-button note-footer-pin" v-if="footerState === 'open' && secondaryFooterState === 'none'" :class="{pinned: pinned, visible: pinnedButtonVisibility}" @click="switchPinnedState">
                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M18.4275 1.35375C18.5507 1.35353 18.6727 1.37759 18.7866 1.42457C18.9005 1.47154 19.004 1.5405 19.0912 1.6275L28.3725 10.9087C28.5482
                             11.0846 28.647 11.323 28.647 11.5716C28.647 11.8202 28.5482 12.0586 28.3725 12.2344C27.4725 13.1344 26.3625 13.3369 25.5544 13.3369C25.2225 13.3369
@@ -302,18 +329,21 @@ window.onload = function () {
                             16.6621 4.73534 16.6612 4.44562C16.6612 3.63937 16.8637 2.52937 17.7656 1.6275C17.9413 1.45225 18.1793 1.3538 18.4275 1.35375V1.35375Z" fill="#401B37"/>
                         </svg>                    
                     </div>
-                    <div class="note-footer-button note-footer-delete" v-if="footerState === 'open'" :class="{visible: deleteButtonVisibility}">
-                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" @click="reset">
+                    <div class="note-footer-button note-footer-delete" v-if="footerState === 'open' && secondaryFooterState === 'none'" :class="{visible: deleteButtonVisibility}">
+                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" @click="deleteNote">
                             <path d="M25 25L5 5M25 5L5 25" stroke="#401B37" stroke-width="2.5" stroke-linecap="round"/>
                         </svg>                    
                     </div>
                 </div>
             </div>
         `,
-        props: ['titre', 'texte', 'date-creation', 'date-modification', 'couleur-fond', 'couleur-texte', 'etat'],
+        props: ['titre', 'texte', 'date-creation', 'date-modification', 'couleur-fond', 'couleur-texte', 'etat', 'mode'],
         data() {
             return {
-                footerState: 'close',
+                footerState: 'backgroundColor',
+                secondaryFooterState: 'none',
+                editButtonVisibility: false,
+                editButtonVisibilityTimeout: null,
                 backgroundColorButtonVisibility: false,
                 backgroundColorButtonVisibilityTimeout: null,
                 textColorButtonVisibility: false,
@@ -322,39 +352,196 @@ window.onload = function () {
                 pinnedButtonVisibilityTimeout: null,
                 deleteButtonVisibility: false,
                 deleteButtonVisibilityTimeout: null,
-                pinned: false
+                pinned: false,
+                editingMode: false,
+                colors: ["#401B37", "#FFCB00", "#00BFA5", "#FF00FF"],
+                titreEdit: this.titre,
+                texteEdit: this.texte,
+                editTitreTimeout: null,
+                editTexteTimeout: null
             }
         },
         methods: {
             switchFooterState() {
                 if(this.footerState == 'close') {
                     this.footerState = 'open';
+                    this.edditButtonVisibilityTimeout = setTimeout(() => {
+                        this.editButtonVisibility = true;
+                    }, 100);
                     this.backgroundColorButtonVisibilityTimeout = setTimeout(() => {
                         this.backgroundColorButtonVisibility = true;
-                    }, 100);
+                    }, 400);
                     this.textColorButtonVisibilityTimeout = setTimeout(() => {
                         this.textColorButtonVisibility = true;
-                    }, 400);
+                    }, 700);
                     this.pinnedButtonVisibilityTimeout = setTimeout(() => {
                         this.pinnedButtonVisibility = true;
-                    }, 700);
+                    }, 1000);
                     this.deleteButtonVisibilityTimeout = setTimeout(() => {
                         this.deleteButtonVisibility = true;
-                    }, 1000);
+                    }, 1300);
                 } else {
                     this.footerState = 'close';
+                    this.secondaryFooterState = 'none';
+                    this.editButtonVisibility = false;
                     this.backgroundColorButtonVisibility = false;
                     this.textColorButtonVisibility = false;
                     this.pinnedButtonVisibility = false;
                     this.deleteButtonVisibility = false;
+                    clearTimeout(this.editButtonVisibilityTimeout);
                     clearTimeout(this.backgroundColorButtonVisibilityTimeout);
                     clearTimeout(this.textColorButtonVisibilityTimeout);
                     clearTimeout(this.pinnedButtonVisibilityTimeout);
                     clearTimeout(this.deleteButtonVisibilityTimeout);
                 }
             },
+            updateSecondaryFooterState(state) {
+                this.secondaryFooterState = state;
+            },
+            updateHeightTextArea(event) {
+                event.target.style.height = "";
+                event.target.style.height = event.target.scrollHeight + "px";
+                //On met à jour aussi le texte
+                this.updateTexte();
+            },
             switchPinnedState() {
                 this.pinned = !this.pinned;
+                console.log("envoi d'un message au serveur pour changer l'état de la note");
+                let infosNote = new FormData();
+                infosNote.append("majNote", 1);
+                if(this.pinned) {
+                    infosNote.append("etat", "EPINGLE");
+                } else {
+                    infosNote.append("etat", "NORMAL");
+                }
+                infosNote.append("dateCreation", this.dateCreation);
+
+                fetch('php/index_serveur.php', {
+                    method: 'POST',
+                    body: infosNote
+                })
+                .then(function(response) {
+                    console.log(response);
+                    if(response.ok) {
+                        return response.json();
+                    }
+                }).then(data => {
+                    if(data.status === "sucess") {
+                        console.log("La note à bien été mise à jour du coté du serveur");
+                    } else {
+                        console.log("impossible de mettre à jour la note : " + data.status);
+                    }
+                });
+            },
+            switchEditingMode() {
+                this.editingMode = !this.editingMode;
+            },
+            updateBackgroundColor(color) {
+                this.$emit('update-background-color', color);
+                let infosNote = new FormData();
+                infosNote.append("majNote", 1);
+                infosNote.append("couleurFond", color);
+                infosNote.append("dateCreation", this.dateCreation);
+
+                fetch('php/index_serveur.php', {
+                    method: 'POST',
+                    body: infosNote
+                })
+                .then(function(response) {
+                    console.log(response);
+                    if(response.ok) {
+                        return response.json();
+                    }
+                }).then(data => {
+                    if(data.status === "sucess") {
+                        console.log("La note à bien été mise à jour du coté du serveur");
+                    } else {
+                        console.log("impossible de mettre à jour la note : " + data.status);
+                    }
+                });
+            },
+            updateTextColor(color) {
+                this.$emit('update-text-color', color);
+                let infosNote = new FormData();
+                infosNote.append("majNote", 1);
+                infosNote.append("couleurTexte", color);
+                infosNote.append("dateCreation", this.dateCreation);
+
+                fetch('php/index_serveur.php', {
+                    method: 'POST',
+                    body: infosNote
+                })
+                .then(function(response) {
+                    console.log(response);
+                    if(response.ok) {
+                        return response.json();
+                    }
+                }).then(data => {
+                    if(data.status === "sucess") {
+                        console.log("La note à bien été mise à jour du coté du serveur");
+                    } else {
+                        console.log("impossible de mettre à jour la note : " + data.status);
+                    }
+                });
+            },
+            updateTitre() {
+                clearTimeout(this.editTitreTimeout);
+                this.editTitreTimeout = setTimeout(() => {
+                    this.$emit("update-titre", this.titreEdit);
+                    console.log("envoi d'un message au serveur pour changer le titre de la note");
+                    let infosNote = new FormData();
+                    infosNote.append("majNote", 1);
+                    infosNote.append("titre", this.titreEdit);
+                    infosNote.append("dateCreation", this.dateCreation);
+
+                    fetch('php/index_serveur.php', {
+                        method: 'POST',
+                        body: infosNote
+                    })
+                    .then(function(response) {
+                        console.log(response);
+                        if(response.ok) {
+                            return response.json();
+                        }
+                    }).then(data => {
+                        if(data.status === "sucess") {
+                            console.log("La note à bien été mise à jour du coté du serveur");
+                        } else {
+                            console.log("impossible de mettre à jour la note : " + data.status);
+                        }
+                    });
+                }, 2000);
+            },
+            updateTexte() {
+                clearTimeout(this.editTexteTimeout);
+                this.editTexteTimeout = setTimeout(() => {
+                    this.$emit("update-texte", this.texteEdit);
+                    console.log("envoi d'un message au serveur pour changer le texte de la note");
+                    let infosNote = new FormData();
+                    infosNote.append("majNote", 1);
+                    infosNote.append("texte", this.texteEdit);
+                    infosNote.append("dateCreation", this.dateCreation);
+
+                    fetch('php/index_serveur.php', {
+                        method: 'POST',
+                        body: infosNote
+                    })
+                    .then(function(response) {
+                        console.log(response);
+                        if(response.ok) {
+                            return response.json();
+                        }
+                    }).then(data => {
+                        if(data.status === "sucess") {
+                            console.log("La note à bien été mise à jour du coté du serveur");
+                        } else {
+                            console.log("impossible de mettre à jour la note : " + data.status);
+                        }
+                    });
+                }, 2000);
+            },
+            deleteNote() {
+                console.log("delete note");
             }
         },
         mounted() {
