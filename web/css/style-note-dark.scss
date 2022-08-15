@@ -1,0 +1,276 @@
+$vert-fonce: #0C7003;
+$vert-clair: #1AB60C;
+
+.note {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+
+    color: $blanc;
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2rem;
+
+    border: 1px solid $gris-clair;
+    border-radius: 0.8em;
+    padding: 0.5em 1em;
+    margin-top: 2rem;
+
+    width: min(85%, 30rem);
+
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+
+    @media screen and (max-width: 460px) {
+        padding: 0.3em 0.2em;
+
+        width: min(95%, 30rem);
+    }
+
+    .note-header {
+        text-align: center;
+        color: inherit;
+
+        &.editing {
+            border: none;
+            font-family: 'Nunito';
+            font-style: normal;
+            font-weight: 600;
+            font-size: inherit;
+            color: inherit;
+            background: none;
+
+            padding: 0;
+            margin: 0;
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+
+    .note-content {
+        font-size: 1.3rem;
+        color: inherit;
+
+        &.editing {
+            border: none;
+            font-family: 'Nunito';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: inherit;
+            background: none;
+            
+            padding: 0;
+            margin: 0;
+
+            resize: none;
+            overflow: hidden;
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+
+    .note-date {
+        font-size: 0.8rem;
+        text-align: right;
+    }
+
+    .note-footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0.3em;
+
+        &.open {
+            justify-content: space-between;
+        }
+
+        .note-footer-hamburger-button {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            width: 1.6rem;
+            height: 1.2rem;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease-in-out;
+
+            .note-footer-hamburger-button-top {
+                width: 100%;
+                height: 0.2rem;
+                background: $gris-clair;
+
+                border-radius: 0.25rem;
+
+                transition: all 0.3s ease-in-out;
+            }
+
+            .note-footer-hamburger-button-middle {
+                width: 100%;
+                height: 0.2rem;
+                background: $gris-clair;
+
+                border-radius: 0.25rem;
+
+                transition: all 0.3s ease-in-out;
+            }
+
+            .note-footer-hamburger-button-bottom {
+                width: 100%;
+                height: 0.2rem;
+                background: $gris-clair;
+
+                border-radius: 0.25rem ;
+
+                transition: all 0.3s ease-in-out;
+            }
+
+            &:hover {
+                .note-footer-hamburger-button-top {
+                    background: $blanc;
+                }
+                .note-footer-hamburger-button-middle {
+                    background: $blanc;
+                }
+                .note-footer-hamburger-button-bottom {
+                    background: $blanc;
+                }
+            }
+
+            &.open {
+
+                transform: rotate(-180deg);
+
+                .note-footer-hamburger-button-top {
+                    width: 50%;
+                    transform: translate(-0.5rem, 0.28rem) rotate(-45deg);
+                    background: $blanc;
+                }
+
+                .note-footer-hamburger-button-middle {
+                    background: $blanc;
+                }
+
+                .note-footer-hamburger-button-bottom {
+                    width: 50%;
+                    transform: translate(-0.5rem, -0.28rem) rotate(45deg);
+                    background: $blanc;
+                }
+            }
+        }
+
+        .note-footer-button {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+
+            &.visible {
+                opacity: 1;
+            }
+
+            svg {
+                cursor: pointer;
+    
+                path {
+                    fill: $gris-clair;
+                }
+    
+                &:hover {
+                    path {
+                        fill: $blanc;
+                    }
+                }
+            }
+
+            &.pinned {
+                svg {
+                    path {
+                        fill: $blanc;
+                    }
+                }
+            }
+
+            &.note-footer-edit {
+                svg {
+                    path {
+                        stroke: $gris-clair;
+                        fill: none;
+                    }
+                }
+
+                &:hover {
+                    svg {
+                        path {
+                            stroke: $blanc;
+                        }
+                    }
+                }
+            }
+
+            &.note-footer-delete {
+                svg {
+                    path {
+                        stroke: $rouge-fonce;
+                        opacity: 0.8;
+                    }
+    
+                    &:hover {
+                        path {
+                            stroke: $rouge;
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        .note-footer-color-menu {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.3em;
+
+            width: 100%;
+            padding: 0.2em;
+            
+            border: 1px solid $gris-clair;
+            border-radius: 0.8em;
+
+            .note-footer-color-menu-item {
+                cursor: pointer;
+                border: 1px solid $gris-clair;
+                border-radius: 0.8em;
+
+                height: 30px;
+                aspect-ratio: 1;
+
+                &.delete {
+                    border: none;
+                    path {
+                        stroke: $rouge-fonce;
+                        opacity: 0.8;
+                    }
+
+                    &:hover {
+                        path {
+                            stroke: $rouge;
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

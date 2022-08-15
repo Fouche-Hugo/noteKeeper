@@ -122,9 +122,10 @@ if(isset($_SESSION['utilisateur'])) {
             echo json_encode(['status' => 'erreurBDD']);
         }
     } else if(isset($_POST['majNote']) && $_POST['majNote'] == 1) {
-        if(!empty($_POST['couleurFond']) && !empty($_POST['dateCreation'])) {
+        if(!empty($_POST['couleurFond']) && !empty($_POST['dateCreation']) && !empty($_POST['dateModification'])) {
             $couleurFond = valid_donnees($_POST['couleurFond']);
             $dateCreation = valid_donnees($_POST['dateCreation']);
+            $dateModification = valid_donnees($_POST['dateModification']);
             
             $idCouleurFond = 0;
             //On vérifie si la couleur de fond existe dans la base de données
@@ -151,8 +152,8 @@ if(isset($_SESSION['utilisateur'])) {
                 $req->close();
 
                 //On met à jour la note dans la base de données
-                if($req = $db->prepare('UPDATE note SET couleurFond = ? WHERE dateCreation = ? AND utilisateur = ?')) {
-                    $req->bind_param('isi', $idCouleurFond, $dateCreation, $_SESSION['utilisateur']);
+                if($req = $db->prepare('UPDATE note SET couleurFond = ?, dateModification = ? WHERE dateCreation = ? AND utilisateur = ?')) {
+                    $req->bind_param('issi', $idCouleurFond, $dateModification, $dateCreation, $_SESSION['utilisateur']);
                     $req->execute();
                     $req->close();
                     echo json_encode(['status' => 'sucess']);
@@ -162,9 +163,10 @@ if(isset($_SESSION['utilisateur'])) {
             } else {
                 echo json_encode(['status' => 'erreurBDD-couleurFond2']);
             }
-        } else if(!empty($_POST['couleurTexte']) && !empty($_POST['dateCreation'])) {
+        } else if(!empty($_POST['couleurTexte']) && !empty($_POST['dateCreation']) && !empty($_POST['dateModification'])) {
             $couleurTexte = valid_donnees($_POST['couleurTexte']);
             $dateCreation = valid_donnees($_POST['dateCreation']);
+            $dateModification = valid_donnees($_POST['dateModification']);
             
             $idCouleurTexte = 0;
             //On vérifie si la couleur de texte existe dans la base de données
@@ -190,8 +192,8 @@ if(isset($_SESSION['utilisateur'])) {
                 }
                 $req->close();
                 //On met à jour la note dans la base de données
-                if($req = $db->prepare('UPDATE note SET couleurTexte = ? WHERE dateCreation = ? AND utilisateur = ?')) {
-                    $req->bind_param('isi', $idCouleurTexte, $dateCreation, $_SESSION['utilisateur']);
+                if($req = $db->prepare('UPDATE note SET couleurTexte = ?, dateModification = ? WHERE dateCreation = ? AND utilisateur = ?')) {
+                    $req->bind_param('issi', $idCouleurTexte, $dateModification, $dateCreation, $_SESSION['utilisateur']);
                     $req->execute();
                     $req->close();
                     echo json_encode(['status' => 'sucess']);
@@ -201,39 +203,42 @@ if(isset($_SESSION['utilisateur'])) {
             } else {
                 echo json_encode(['status' => 'erreurBDD-couleurTexte2']);
             }
-        } else if(!empty($_POST['etat']) && !empty($_POST['dateCreation'])) {
+        } else if(!empty($_POST['etat']) && !empty($_POST['dateCreation']) && !empty($_POST['dateModification'])) {
             $etat = valid_donnees($_POST['etat']);
             $dateCreation = valid_donnees($_POST['dateCreation']);
+            $dateModification = valid_donnees($_POST['dateModification']);
             
             //On met à jour la note dans la base de données
-            if($req = $db->prepare('UPDATE note SET etat = ? WHERE dateCreation = ? AND utilisateur = ?')) {
-                $req->bind_param('ssi', $etat, $dateCreation, $_SESSION['utilisateur']);
+            if($req = $db->prepare('UPDATE note SET etat = ?, dateModification = ? WHERE dateCreation = ? AND utilisateur = ?')) {
+                $req->bind_param('sssi', $etat, $dateModification, $dateCreation, $_SESSION['utilisateur']);
                 $req->execute();
                 $req->close();
                 echo json_encode(['status' => 'sucess']);
             } else {
                 echo json_encode(['status' => 'erreurBDD']);
             }
-        } else if(!empty($_POST['titre']) && !empty($_POST['dateCreation'])) {
+        } else if(!empty($_POST['titre']) && !empty($_POST['dateCreation']) && !empty($_POST['dateModification'])) {
             $titre = valid_donnees($_POST['titre']);
             $dateCreation = valid_donnees($_POST['dateCreation']);
+            $dateModification = valid_donnees($_POST['dateModification']);
             
             //On met à jour la note dans la base de données
-            if($req = $db->prepare('UPDATE note SET titre = ? WHERE dateCreation = ? AND utilisateur = ?')) {
-                $req->bind_param('ssi', $titre, $dateCreation, $_SESSION['utilisateur']);
+            if($req = $db->prepare('UPDATE note SET titre = ?, dateModification = ? WHERE dateCreation = ? AND utilisateur = ?')) {
+                $req->bind_param('sssi', $titre, $dateModification, $dateCreation, $_SESSION['utilisateur']);
                 $req->execute();
                 $req->close();
                 echo json_encode(['status' => 'sucess']);
             } else {
                 echo json_encode(['status' => 'erreurBDD']);
             }
-        } else if(!empty($_POST['texte']) && !empty($_POST['dateCreation'])) {
+        } else if(!empty($_POST['texte']) && !empty($_POST['dateCreation']) && !empty($_POST['dateModification'])) {
             $texte = valid_donnees($_POST['texte']);
             $dateCreation = valid_donnees($_POST['dateCreation']);
+            $dateModification = valid_donnees($_POST['dateModification']);
             
             //On met à jour la note dans la base de données
-            if($req = $db->prepare('UPDATE note SET texte = ? WHERE dateCreation = ? AND utilisateur = ?')) {
-                $req->bind_param('ssi', $texte, $dateCreation, $_SESSION['utilisateur']);
+            if($req = $db->prepare('UPDATE note SET texte = ?, dateModification = ? WHERE dateCreation = ? AND utilisateur = ?')) {
+                $req->bind_param('sssi', $texte, $dateModification, $dateCreation, $_SESSION['utilisateur']);
                 $req->execute();
                 $req->close();
                 echo json_encode(['status' => 'sucess']);

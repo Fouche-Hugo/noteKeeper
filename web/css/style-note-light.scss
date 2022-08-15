@@ -132,6 +132,18 @@ $vert-clair: #1AB60C;
                 transition: all 0.3s ease-in-out;
             }
 
+            &:hover {
+                .note-footer-hamburger-button-top {
+                    background: $violet;
+                }
+                .note-footer-hamburger-button-middle {
+                    background: $violet;
+                }
+                .note-footer-hamburger-button-bottom {
+                    background: $violet;
+                }
+            }
+
             &.open {
 
                 transform: rotate(-180deg);

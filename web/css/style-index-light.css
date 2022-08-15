@@ -433,6 +433,15 @@ header > div > div .close-profil-menu > div:hover::after {
   border-radius: 0.25rem;
   transition: all 0.3s ease-in-out;
 }
+.note .note-footer .note-footer-hamburger-button:hover .note-footer-hamburger-button-top {
+  background: #401B37;
+}
+.note .note-footer .note-footer-hamburger-button:hover .note-footer-hamburger-button-middle {
+  background: #401B37;
+}
+.note .note-footer .note-footer-hamburger-button:hover .note-footer-hamburger-button-bottom {
+  background: #401B37;
+}
 .note .note-footer .note-footer-hamburger-button.open {
   transform: rotate(-180deg);
 }

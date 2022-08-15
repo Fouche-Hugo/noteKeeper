@@ -245,10 +245,10 @@ window.onload = function () {
         template: `
             <div class="note" :style="{background: couleurFond}">
                 <input class="note-header editing" v-model="titreEdit" v-if="editingMode" :style="{color: couleurTexte}" @input="updateTitre"/>
-                <div class="note-header" v-else :style="{color: couleurTexte}" >{{titre}}</div>
-                <textarea class="note-content editing" v-model="texteEdit" v-if="editingMode" @input="updateHeightTextArea" :style="{color: couleurTexte}" ></textarea>
-                <div class="note-content" v-else :style="{color: couleurTexte}" >{{texte}}</div>
-                <div class="note-date">Date de création : {{dateCreation}}<br>Date de dernière modification : {{dateModification}}</div>
+                <div class="note-header" v-else :style="{color: couleurTexte}">{{titre}}</div>
+                <textarea class="note-content editing" v-model="texteEdit" v-if="editingMode" @input="updateHeightTextArea" :style="{color: couleurTexte}"></textarea>
+                <div class="note-content" v-else :style="{color: couleurTexte}">{{texte}}</div>
+                <div class="note-date" :style="{color: couleurTexte}">Date de création : {{dateCreation}}<br>Date de dernière modification : {{dateModification}}</div>
                 <div class="note-footer" :class="footerState">
                     <div class="note-footer-hamburger-button" @click="switchFooterState" :class="footerState">
                         <div class="note-footer-hamburger-button-top"></div>
@@ -407,8 +407,14 @@ window.onload = function () {
             switchPinnedState() {
                 this.pinned = !this.pinned;
                 console.log("envoi d'un message au serveur pour changer l'état de la note");
+                //stock actual date as the following string format YYYY-MM-DD HH:MM:SS
+                let date = new Date();
+                let dateString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                this.$emit("update-date-modification", dateString);
+
                 let infosNote = new FormData();
                 infosNote.append("majNote", 1);
+                infosNote.append("dateModification", dateString);
                 if(this.pinned) {
                     infosNote.append("etat", "EPINGLE");
                 } else {
@@ -438,10 +444,17 @@ window.onload = function () {
             },
             updateBackgroundColor(color) {
                 this.$emit('update-background-color', color);
+
+                //stock actual date as the following string format YYYY-MM-DD HH:MM:SS
+                let date = new Date();
+                let dateString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                this.$emit("update-date-modification", dateString);
+
                 let infosNote = new FormData();
                 infosNote.append("majNote", 1);
                 infosNote.append("couleurFond", color);
                 infosNote.append("dateCreation", this.dateCreation);
+                infosNote.append("dateModification", dateString);
 
                 fetch('php/index_serveur.php', {
                     method: 'POST',
@@ -462,10 +475,17 @@ window.onload = function () {
             },
             updateTextColor(color) {
                 this.$emit('update-text-color', color);
+
+                //stock actual date as the following string format YYYY-MM-DD HH:MM:SS
+                let date = new Date();
+                let dateString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                this.$emit("update-date-modification", dateString);
+
                 let infosNote = new FormData();
                 infosNote.append("majNote", 1);
                 infosNote.append("couleurTexte", color);
                 infosNote.append("dateCreation", this.dateCreation);
+                infosNote.append("dateModification", dateString);
 
                 fetch('php/index_serveur.php', {
                     method: 'POST',
@@ -489,10 +509,17 @@ window.onload = function () {
                 this.editTitreTimeout = setTimeout(() => {
                     this.$emit("update-titre", this.titreEdit);
                     console.log("envoi d'un message au serveur pour changer le titre de la note");
+                    
+                    //stock actual date as the following string format YYYY-MM-DD HH:MM:SS
+                    let date = new Date();
+                    let dateString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                    this.$emit("update-date-modification", dateString);
+                    
                     let infosNote = new FormData();
                     infosNote.append("majNote", 1);
                     infosNote.append("titre", this.titreEdit);
                     infosNote.append("dateCreation", this.dateCreation);
+                    infosNote.append("dateModification", dateString);
 
                     fetch('php/index_serveur.php', {
                         method: 'POST',
@@ -517,10 +544,17 @@ window.onload = function () {
                 this.editTexteTimeout = setTimeout(() => {
                     this.$emit("update-texte", this.texteEdit);
                     console.log("envoi d'un message au serveur pour changer le texte de la note");
+                    
+                    //stock actual date as the following string format YYYY-MM-DD HH:MM:SS
+                    let date = new Date();
+                    let dateString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                    this.$emit("update-date-modification", dateString);
+
                     let infosNote = new FormData();
                     infosNote.append("majNote", 1);
                     infosNote.append("texte", this.texteEdit);
                     infosNote.append("dateCreation", this.dateCreation);
+                    infosNote.append("dateModification", dateString);
 
                     fetch('php/index_serveur.php', {
                         method: 'POST',

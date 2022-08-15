@@ -327,4 +327,202 @@ header > div > div .close-profil-menu > div:hover::after {
 .note-creation .note-creation-footer .note-creation-footer-delete svg:hover path {
   stroke: #ED1D20;
   opacity: 1;
+}
+
+.note {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  color: #FCFCFF;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 2rem;
+  border: 1px solid #78745F;
+  border-radius: 0.8em;
+  padding: 0.5em 1em;
+  margin-top: 2rem;
+  width: min(85%, 30rem);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+@media screen and (max-width: 460px) {
+  .note {
+    padding: 0.3em 0.2em;
+    width: min(95%, 30rem);
+  }
+}
+.note .note-header {
+  text-align: center;
+  color: inherit;
+}
+.note .note-header.editing {
+  border: none;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+.note .note-header.editing:focus {
+  outline: none;
+}
+.note .note-content {
+  font-size: 1.3rem;
+  color: inherit;
+}
+.note .note-content.editing {
+  border: none;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: inherit;
+  background: none;
+  padding: 0;
+  margin: 0;
+  resize: none;
+  overflow: hidden;
+}
+.note .note-content.editing:focus {
+  outline: none;
+}
+.note .note-date {
+  font-size: 0.8rem;
+  text-align: right;
+}
+.note .note-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.3em;
+}
+.note .note-footer.open {
+  justify-content: space-between;
+}
+.note .note-footer .note-footer-hamburger-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 1.6rem;
+  height: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.note .note-footer .note-footer-hamburger-button .note-footer-hamburger-button-top {
+  width: 100%;
+  height: 0.2rem;
+  background: #78745F;
+  border-radius: 0.25rem;
+  transition: all 0.3s ease-in-out;
+}
+.note .note-footer .note-footer-hamburger-button .note-footer-hamburger-button-middle {
+  width: 100%;
+  height: 0.2rem;
+  background: #78745F;
+  border-radius: 0.25rem;
+  transition: all 0.3s ease-in-out;
+}
+.note .note-footer .note-footer-hamburger-button .note-footer-hamburger-button-bottom {
+  width: 100%;
+  height: 0.2rem;
+  background: #78745F;
+  border-radius: 0.25rem;
+  transition: all 0.3s ease-in-out;
+}
+.note .note-footer .note-footer-hamburger-button:hover .note-footer-hamburger-button-top {
+  background: #FCFCFF;
+}
+.note .note-footer .note-footer-hamburger-button:hover .note-footer-hamburger-button-middle {
+  background: #FCFCFF;
+}
+.note .note-footer .note-footer-hamburger-button:hover .note-footer-hamburger-button-bottom {
+  background: #FCFCFF;
+}
+.note .note-footer .note-footer-hamburger-button.open {
+  transform: rotate(-180deg);
+}
+.note .note-footer .note-footer-hamburger-button.open .note-footer-hamburger-button-top {
+  width: 50%;
+  transform: translate(-0.5rem, 0.28rem) rotate(-45deg);
+  background: #FCFCFF;
+}
+.note .note-footer .note-footer-hamburger-button.open .note-footer-hamburger-button-middle {
+  background: #FCFCFF;
+}
+.note .note-footer .note-footer-hamburger-button.open .note-footer-hamburger-button-bottom {
+  width: 50%;
+  transform: translate(-0.5rem, -0.28rem) rotate(45deg);
+  background: #FCFCFF;
+}
+.note .note-footer .note-footer-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+.note .note-footer .note-footer-button.visible {
+  opacity: 1;
+}
+.note .note-footer .note-footer-button svg {
+  cursor: pointer;
+}
+.note .note-footer .note-footer-button svg path {
+  fill: #78745F;
+}
+.note .note-footer .note-footer-button svg:hover path {
+  fill: #FCFCFF;
+}
+.note .note-footer .note-footer-button.pinned svg path {
+  fill: #FCFCFF;
+}
+.note .note-footer .note-footer-button.note-footer-edit svg path {
+  stroke: #78745F;
+  fill: none;
+}
+.note .note-footer .note-footer-button.note-footer-edit:hover svg path {
+  stroke: #FCFCFF;
+}
+.note .note-footer .note-footer-button.note-footer-delete svg path {
+  stroke: #971313;
+  opacity: 0.8;
+}
+.note .note-footer .note-footer-button.note-footer-delete svg:hover path {
+  stroke: #ED1D20;
+  opacity: 1;
+}
+.note .note-footer .note-footer-color-menu {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.3em;
+  width: 100%;
+  padding: 0.2em;
+  border: 1px solid #78745F;
+  border-radius: 0.8em;
+}
+.note .note-footer .note-footer-color-menu .note-footer-color-menu-item {
+  cursor: pointer;
+  border: 1px solid #78745F;
+  border-radius: 0.8em;
+  height: 30px;
+  aspect-ratio: 1;
+}
+.note .note-footer .note-footer-color-menu .note-footer-color-menu-item.delete {
+  border: none;
+}
+.note .note-footer .note-footer-color-menu .note-footer-color-menu-item.delete path {
+  stroke: #971313;
+  opacity: 0.8;
+}
+.note .note-footer .note-footer-color-menu .note-footer-color-menu-item.delete:hover path {
+  stroke: #ED1D20;
+  opacity: 1;
 }/*# sourceMappingURL=style-index-dark.css.map */
