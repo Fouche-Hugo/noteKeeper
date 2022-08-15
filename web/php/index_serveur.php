@@ -27,68 +27,76 @@ if(isset($_SESSION['utilisateur'])) {
                             //On enlève les caractères dangereux dans les données reçues par POST (couleurTexte)
                             $couleurTexte = valid_donnees($_POST['couleurTexte']);
 
-                            $idCouleurFond = 0;
-                            $idCouleurTexte = 0;
-                            //On vérifie si la couleur de fond existe dans la base de données
-                            if($req = $db->prepare('SELECT * FROM couleur WHERE code = ?')) {
-                                $req->bind_param('s', $couleurFond);
-                                $req->execute();
-                                $req->store_result();
-                                $req->bind_result($id, $couleur);
-                                $req->fetch();
-                                //Si la couleur de fond n'existe pas, on l'ajoute
-                                if($req->num_rows == 0) {
-                                    if($req2 = $db->prepare('INSERT INTO couleur (code) VALUES (?)')) {
-                                        $req2->bind_param('s', $couleurFond);
-                                        $req2->execute();
-                                        $req2->close();
-                                        $idCouleurFond = $db->insert_id;
-                                    } else {
-                                        echo json_encode(['status' => 'erreurBDD-couleurFond']);
-                                    }
-                                } else {
-                                    //sinon, on récupère l'id de la couleur de fond
-                                    $idCouleurFond = $id;
-                                }
-                                $req->close();
-                            } else {
-                                echo json_encode(['status' => 'erreurBDD-couleurFond2']);
-                            }
-                            //On vérifie si la couleur du texte existe dans la base de données
-                            if($req = $db->prepare('SELECT * FROM couleur WHERE code = ?')) {
-                                $req->bind_param('s', $couleurTexte);
-                                $req->execute();
-                                $req->store_result();
-                                $req->bind_result($id, $couleur);
-                                $req->fetch();
-                                //Si la couleur du texte n'existe pas, on l'ajoute
-                                if($req->num_rows == 0) {
-                                    if($req2 = $db->prepare('INSERT INTO couleur (code) VALUES (?)')) {
-                                        $req2->bind_param('s', $couleurTexte);
-                                        $req2->execute();
-                                        $req2->close();
-                                        $idCouleurTexte = $db->insert_id;
-                                    } else {
-                                        echo json_encode(['status' => 'erreurBDD-couleurTexte']);
-                                    }
-                                } else {
-                                    //sinon, on récupère l'id de la couleur du texte
-                                    $idCouleurTexte = $id;
-                                }
-                                $req->close();
-                            } else {
-                                echo json_encode(['status' => 'erreurBDD-couleurTexte2']);
-                            }
+                            //On vérifie que la date de création a bien été envoyée
+                            if(!empty($_POST['date'])) {
+                                //On enlève les caractères dangereux dans les données reçues par POST (date)
+                                $date = valid_donnees($_POST['date']);
 
-                            //On enregistre la note dans la base de données
-                            if($req = $db->prepare('INSERT INTO note (titre, texte, etat, couleurFond, couleurTexte, utilisateur) VALUES (?, ?, ?, ?, ?, ?)')) {
-                                $req->bind_param('sssiii', $titre, $texte, $etat, $idCouleurFond, $idCouleurTexte, $_SESSION['utilisateur']);
-                                $req->execute();
-                                $req->close();
-                                $idNote = $db->insert_id;
-                                echo json_encode(['status' => 'sucess', 'idNote' => $idNote]);
+                                $idCouleurFond = 0;
+                                $idCouleurTexte = 0;
+                                //On vérifie si la couleur de fond existe dans la base de données
+                                if($req = $db->prepare('SELECT * FROM couleur WHERE code = ?')) {
+                                    $req->bind_param('s', $couleurFond);
+                                    $req->execute();
+                                    $req->store_result();
+                                    $req->bind_result($id, $couleur);
+                                    $req->fetch();
+                                    //Si la couleur de fond n'existe pas, on l'ajoute
+                                    if($req->num_rows == 0) {
+                                        if($req2 = $db->prepare('INSERT INTO couleur (code) VALUES (?)')) {
+                                            $req2->bind_param('s', $couleurFond);
+                                            $req2->execute();
+                                            $req2->close();
+                                            $idCouleurFond = $db->insert_id;
+                                        } else {
+                                            echo json_encode(['status' => 'erreurBDD-couleurFond']);
+                                        }
+                                    } else {
+                                        //sinon, on récupère l'id de la couleur de fond
+                                        $idCouleurFond = $id;
+                                    }
+                                    $req->close();
+                                } else {
+                                    echo json_encode(['status' => 'erreurBDD-couleurFond2']);
+                                }
+                                //On vérifie si la couleur du texte existe dans la base de données
+                                if($req = $db->prepare('SELECT * FROM couleur WHERE code = ?')) {
+                                    $req->bind_param('s', $couleurTexte);
+                                    $req->execute();
+                                    $req->store_result();
+                                    $req->bind_result($id, $couleur);
+                                    $req->fetch();
+                                    //Si la couleur du texte n'existe pas, on l'ajoute
+                                    if($req->num_rows == 0) {
+                                        if($req2 = $db->prepare('INSERT INTO couleur (code) VALUES (?)')) {
+                                            $req2->bind_param('s', $couleurTexte);
+                                            $req2->execute();
+                                            $req2->close();
+                                            $idCouleurTexte = $db->insert_id;
+                                        } else {
+                                            echo json_encode(['status' => 'erreurBDD-couleurTexte']);
+                                        }
+                                    } else {
+                                        //sinon, on récupère l'id de la couleur du texte
+                                        $idCouleurTexte = $id;
+                                    }
+                                    $req->close();
+                                } else {
+                                    echo json_encode(['status' => 'erreurBDD-couleurTexte2']);
+                                }
+
+                                //On enregistre la note dans la base de données
+                                if($req = $db->prepare('INSERT INTO note (titre, texte, etat, couleurFond, couleurTexte, utilisateur, dateCreation, dateModification) VALUES (?, ?, ?, ?, ?, ?, ?, ?)')) {
+                                    $req->bind_param('sssiiiss', $titre, $texte, $etat, $idCouleurFond, $idCouleurTexte, $_SESSION['utilisateur'], $date, $date);
+                                    $req->execute();
+                                    $req->close();
+                                    $idNote = $db->insert_id;
+                                    echo json_encode(['status' => 'sucess', 'idNote' => $idNote]);
+                                } else {
+                                    echo json_encode(['status' => 'erreurBDD', 'titre' => $titre, 'texte' => $texte, 'etat' => $etat, 'couleurFond' => $couleurFond, 'couleurTexte' => $couleurTexte, 'utilisateur' => $_SESSION['utilisateur']]);
+                                }
                             } else {
-                                echo json_encode(['status' => 'erreurBDD', 'titre' => $titre, 'texte' => $texte, 'etat' => $etat, 'couleurFond' => $couleurFond, 'couleurTexte' => $couleurTexte, 'utilisateur' => $_SESSION['utilisateur']]);
+                                echo json_encode(['status' => 'erreurDate']);
                             }
                         } else {
                             echo json_encode(['status' => 'erreurCouleurTexte']);
@@ -107,7 +115,7 @@ if(isset($_SESSION['utilisateur'])) {
         }
     } else if(isset($_POST['listeNotes']) && $_POST['listeNotes'] == 1) {
         //sinon on teste s'il veut accéder à sa liste de notes
-        if($req = $db->prepare('SELECT n.titre, n.texte, n.etat, n.dateCreation, n.dateModification, cf.code, ct.code FROM note n, couleur cf, couleur ct WHERE n.utilisateur = ? AND cf.id = n.couleurFond AND ct.id = n.couleurTexte')) {
+        if($req = $db->prepare('SELECT n.titre, n.texte, n.etat, n.dateCreation, n.dateModification, cf.code, ct.code FROM note n, couleur cf, couleur ct WHERE n.utilisateur = ? AND cf.id = n.couleurFond AND ct.id = n.couleurTexte AND (n.etat = "NORMAL" OR n.etat = "EPINGLE") ORDER BY n.dateModification DESC')) {
             $req->bind_param('i', $_SESSION['utilisateur']);
             $req->execute();
             $req->store_result();
@@ -248,6 +256,20 @@ if(isset($_SESSION['utilisateur'])) {
         } else {
             echo json_encode(['status' => 'erreurDonnees']);
         }
+    } else if(isset($_POST['deleteNote']) && $_POST['deleteNote'] == 1 && !empty($_POST['dateCreation'])) {
+        $dateCreation = valid_donnees($_POST['dateCreation']);
+        
+        //On supprime la note dans la base de données
+        if($req = $db->prepare('UPDATE note SET etat = "SUPPRIME" WHERE dateCreation = ? AND utilisateur = ?')) {
+            $req->bind_param('si', $dateCreation, $_SESSION['utilisateur']);
+            $req->execute();
+            $req->close();
+            echo json_encode(['status' => 'sucess']);
+        } else {
+            echo json_encode(['status' => 'erreurBDD']);
+        }
+    } else {
+        echo json_encode(['status' => 'erreurDonnees']);
     }
 } else {
     echo json_encode(['status' => 'erreurUser']);

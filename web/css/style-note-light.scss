@@ -1,6 +1,8 @@
 $vert-fonce: #0C7003;
 $vert-clair: #1AB60C;
 
+$font-size-note-date: clamp(0.6rem, 0.6rem + 0.25vw, 0.8rem);
+
 .note {
     display: flex;
     flex-direction: column;
@@ -10,22 +12,16 @@ $vert-clair: #1AB60C;
     font-family: 'Nunito';
     font-style: normal;
     font-weight: 600;
-    font-size: 2rem;
+    font-size: $font-size-note-title;
 
     border: 1px solid $violet-gris;
     border-radius: 0.8em;
-    padding: 0.5em 1em;
+    padding: 0.3em 0.3em;
     margin-top: 2rem;
 
-    width: min(85%, 30rem);
+    width: min(95%, 30rem);
 
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-
-    @media screen and (max-width: 460px) {
-        padding: 0.3em 0.2em;
-
-        width: min(95%, 30rem);
-    }
 
     .note-header {
         text-align: center;
@@ -50,7 +46,7 @@ $vert-clair: #1AB60C;
     }
 
     .note-content {
-        font-size: 1.3rem;
+        font-size: $font-size-note-content;
         color: inherit;
 
         &.editing {
@@ -58,7 +54,7 @@ $vert-clair: #1AB60C;
             font-family: 'Nunito';
             font-style: normal;
             font-weight: 600;
-            font-size: 1.3rem;
+            font-size: $font-size-note-content;
             color: inherit;
             background: none;
             
@@ -75,7 +71,7 @@ $vert-clair: #1AB60C;
     }
 
     .note-date {
-        font-size: 0.8rem;
+        font-size: $font-size-note-date;
         text-align: right;
     }
 

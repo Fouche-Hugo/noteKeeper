@@ -216,7 +216,7 @@ header > div > div .close-profil-menu > div:hover::after {
   font-family: "Nunito";
   font-style: normal;
   font-weight: 600;
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 1.5rem + 0.5vw, 2rem);
   border: 1px solid #78745F;
   border-radius: 0.8em;
   padding: 0.5em 1em;
@@ -257,8 +257,8 @@ header > div > div .close-profil-menu > div:hover::after {
 .note-creation textarea {
   resize: none;
   overflow: hidden;
-  font-size: 1.2rem;
-  height: 1.3rem;
+  font-size: clamp(1rem, 1rem + 0.5vw, 1.4rem);
+  height: 1.5rem;
 }
 .note-creation .note-creation-titre {
   padding: 0;
@@ -337,19 +337,13 @@ header > div > div .close-profil-menu > div:hover::after {
   font-family: "Nunito";
   font-style: normal;
   font-weight: 600;
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 1.5rem + 0.5vw, 2rem);
   border: 1px solid #78745F;
   border-radius: 0.8em;
-  padding: 0.5em 1em;
   margin-top: 2rem;
-  width: min(85%, 30rem);
+  padding: 0.3em 0.3em;
+  width: min(95%, 30rem);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-}
-@media screen and (max-width: 460px) {
-  .note {
-    padding: 0.3em 0.2em;
-    width: min(95%, 30rem);
-  }
 }
 .note .note-header {
   text-align: center;
@@ -370,7 +364,7 @@ header > div > div .close-profil-menu > div:hover::after {
   outline: none;
 }
 .note .note-content {
-  font-size: 1.3rem;
+  font-size: clamp(1rem, 1rem + 0.5vw, 1.4rem);
   color: inherit;
 }
 .note .note-content.editing {
@@ -378,7 +372,7 @@ header > div > div .close-profil-menu > div:hover::after {
   font-family: "Nunito";
   font-style: normal;
   font-weight: 600;
-  font-size: 1.3rem;
+  font-size: clamp(1rem, 1rem + 0.5vw, 1.4rem);
   color: inherit;
   background: none;
   padding: 0;
@@ -390,7 +384,7 @@ header > div > div .close-profil-menu > div:hover::after {
   outline: none;
 }
 .note .note-date {
-  font-size: 0.8rem;
+  font-size: clamp(0.6rem, 0.6rem + 0.25vw, 0.8rem);
   text-align: right;
 }
 .note .note-footer {
@@ -525,4 +519,19 @@ header > div > div .close-profil-menu > div:hover::after {
 .note .note-footer .note-footer-color-menu .note-footer-color-menu-item.delete:hover path {
   stroke: #ED1D20;
   opacity: 1;
+}
+
+.note-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8em;
+  padding-inline: 0.8em;
+}
+@media screen and (max-width: 460px) {
+  .note-container {
+    padding: 0.3em 0.2em;
+    width: min(95%, 30rem);
+  }
 }/*# sourceMappingURL=style-index-dark.css.map */

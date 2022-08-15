@@ -172,7 +172,7 @@ window.onload = function () {
                 state: "close", //ouvert ou fermé (closed / opened)
                 secondaryState: "none",
                 content: "",
-                colors: ["#401B37", "#FFCB00", "#00BFA5", "#FF00FF"],
+                colors: ["#ffd166", "#3772ff", "#df2935", "#a9f0d1", "#3f4b3b"],
                 textColorElement: "inherit",
                 backgroundColorElement: "transparent",
                 pinned: false
@@ -209,11 +209,27 @@ window.onload = function () {
                 this.updateState();
             },
             saveNote() {
+                let etat = "NORMAL";
+                if(this.pinned) {
+                    etat = "EPINGLE";
+                }
+                let date = new Date();
+                let dateString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                this.$emit("save-note", {
+                    titre: this.titre,
+                    texte: this.content,
+                    couleurTexte: this.textColorElement,
+                    couleurFond: this.backgroundColorElement,
+                    pinned: etat,
+                    dateCreation: dateString,
+                    dateModification: dateString
+                });
                 let infosNote = new FormData();
                 infosNote.append("titre", this.titre);
                 infosNote.append("texte", this.content);
                 infosNote.append("couleurTexte", this.textColorElement);
                 infosNote.append("couleurFond", this.backgroundColorElement);
+                infosNote.append("date", dateString);
                 if(this.pinned) {
                     infosNote.append("etat", "EPINGLE");
                 } else {
@@ -237,6 +253,7 @@ window.onload = function () {
                         console.log(data.status);
                     }
                 });
+                this.reset();
             }
         }
     });
@@ -354,7 +371,7 @@ window.onload = function () {
                 deleteButtonVisibilityTimeout: null,
                 pinned: false,
                 editingMode: false,
-                colors: ["#401B37", "#FFCB00", "#00BFA5", "#FF00FF"],
+                colors: ["#ffd166", "#3772ff", "#df2935", "#a9f0d1", "#3f4b3b"],
                 titreEdit: this.titre,
                 texteEdit: this.texte,
                 editTitreTimeout: null,
@@ -575,7 +592,27 @@ window.onload = function () {
                 }, 2000);
             },
             deleteNote() {
-                console.log("delete note");
+                this.$emit("delete-note");
+                let infosNote = new FormData();
+                infosNote.append("deleteNote", 1);
+                infosNote.append("dateCreation", this.dateCreation);
+
+                fetch('php/index_serveur.php', {
+                    method: 'POST',
+                    body: infosNote
+                })
+                .then(function(response) {
+                    console.log(response);
+                    if(response.ok) {
+                        return response.json();
+                    }
+                }).then(data => {
+                    if(data.status === "sucess") {
+                        console.log("La note à bien été supprimée du coté du serveur");
+                    } else {
+                        console.log("impossible de supprimer la note : " + data.status);
+                    }
+                });
             }
         },
         mounted() {

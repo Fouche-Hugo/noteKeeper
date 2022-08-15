@@ -1,6 +1,9 @@
 $vert-fonce: #0C7003;
 $vert-clair: #1AB60C;
 
+$font-size-note-title: clamp(1.5rem, 1.5rem + 0.5vw, 2rem);
+$font-size-note-content: clamp(1rem, 1rem + 0.5vw, 1.4rem);
+
 .note-creation {
     display: flex;
     flex-direction: column;
@@ -10,7 +13,7 @@ $vert-clair: #1AB60C;
     font-family: 'Nunito';
     font-style: normal;
     font-weight: 600;
-    font-size: 2rem;
+    font-size: $font-size-note-title;
 
     border: 1px solid $violet-gris;
     border-radius: 0.8em;
@@ -57,9 +60,9 @@ $vert-clair: #1AB60C;
         resize: none;
         overflow: hidden;
         @extend %entree-clavier;
-        font-size: 1.2rem;
+        font-size: $font-size-note-content;
 
-        height: 1.3rem;
+        height: 1.5rem;
     }
 
     .note-creation-titre {

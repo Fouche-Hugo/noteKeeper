@@ -1,3 +1,19 @@
 @import "style-header-light";
 @import "style-note-creation-light";
-@import "style-note-light";     
+@import "style-note-light"; 
+
+.note-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .8em;
+
+    padding-inline: .8em;
+
+    @media screen and (max-width: 460px) {
+        padding: 0.3em 0.2em;
+
+        width: min(95%, 30rem);
+    }
+}
