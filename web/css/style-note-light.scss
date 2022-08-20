@@ -269,4 +269,44 @@ $font-size-note-date: clamp(0.6rem, 0.6rem + 0.25vw, 0.8rem);
             }
         }
     }
+
+    .note-footer-corbeille {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+
+        .note-footer-pin {
+            svg {
+                path {
+                    fill: $violet-gris;
+                }
+            }
+
+            &.pinned {
+                svg {
+                    path {
+                        fill: $violet;
+                    }
+                }
+            }
+        }
+
+        .note-footer-restore {
+            cursor: pointer;
+
+            svg {
+                path {
+                    fill: $violet-gris;
+                }
+            }
+            &:hover {
+                svg {
+                    path {
+                        fill: $violet;
+                    }
+                }
+            }
+        }
+    }
 }

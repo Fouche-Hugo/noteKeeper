@@ -519,6 +519,27 @@ header > div > div .close-profil-menu > div:hover::after {
   stroke: #ED1D20;
   opacity: 1;
 }
+.note .note-footer-corbeille {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+.note .note-footer-corbeille .note-footer-pin svg path {
+  fill: #786774;
+}
+.note .note-footer-corbeille .note-footer-pin.pinned svg path {
+  fill: #401B37;
+}
+.note .note-footer-corbeille .note-footer-restore {
+  cursor: pointer;
+}
+.note .note-footer-corbeille .note-footer-restore svg path {
+  fill: #786774;
+}
+.note .note-footer-corbeille .note-footer-restore:hover svg path {
+  fill: #401B37;
+}
 
 .note-container {
   display: flex;

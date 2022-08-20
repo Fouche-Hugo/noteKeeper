@@ -26,12 +26,14 @@
                         <div class="profil-name"><?php echo $nom." ".$prenom;?></div>
                         <div class="profil-mail"><?php echo $mail;?></div>
                         <a href="update-infos.php" class="informations-lien">Mettre à jour ses informations</a>
+                        <a href="corbeille.php" class="informations-lien">Ma corbeille</a>
                         <a href="deconnexion.php" class="deconnexion-lien">Se déconnecter</a>
                     </div>
                     <div class="profil-menu-mobile">
                         <div>
                             <h1>Note Keeper</h1>
                             <a href="update-infos.php" class="informations-lien">Mettre à jour ses informations</a>
+                            <a href="corbeille.php" class="informations-lien">Ma corbeille</a>
                             <a href="deconnexion.php" class="deconnexion-lien">Se déconnecter</a>
                         </div>
                     </div>

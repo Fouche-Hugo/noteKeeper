@@ -344,7 +344,7 @@ window.onload = function () {
                             27.4819C2.15248 27.1162 3.4781 25.1944 3.84373 24.8306L9.80998 18.8644L4.50748 13.56C4.33172 13.3842 4.23299 13.1458 4.23299 12.8972C4.23299 12.6486
                             4.33172 12.4102 4.50748 12.2344C5.79748 10.9444 7.64435 10.7962 8.9606 10.8844C9.60121 10.9293 10.2367 11.0296 10.86 11.1844L16.7362 5.31C16.6872 5.02447
                             16.6621 4.73534 16.6612 4.44562C16.6612 3.63937 16.8637 2.52937 17.7656 1.6275C17.9413 1.45225 18.1793 1.3538 18.4275 1.35375V1.35375Z" fill="#401B37"/>
-                        </svg>                    
+                        </svg>
                     </div>
                     <div class="note-footer-button note-footer-delete" v-if="footerState === 'open' && secondaryFooterState === 'none'" :class="{visible: deleteButtonVisibility}">
                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" @click="deleteNote">

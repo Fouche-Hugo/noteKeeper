@@ -2,6 +2,7 @@
 include 'bdd.php';
 include 'fonctions.php';
 session_start();
+
 //On vérifie que l'utilisateur est bien connecté
 if(isset($_SESSION['utilisateur'])) {
     //on teste si une nouvelle note a été envoyée
@@ -115,7 +116,7 @@ if(isset($_SESSION['utilisateur'])) {
         }
     } else if(isset($_POST['listeNotes']) && $_POST['listeNotes'] == 1) {
         //sinon on teste s'il veut accéder à sa liste de notes
-        if($req = $db->prepare('SELECT n.titre, n.texte, n.etat, n.dateCreation, n.dateModification, cf.code, ct.code FROM note n, couleur cf, couleur ct WHERE n.utilisateur = ? AND cf.id = n.couleurFond AND ct.id = n.couleurTexte AND (n.etat = "NORMAL" OR n.etat = "EPINGLE") ORDER BY n.dateModification DESC')) {
+        if($req = $db->prepare('SELECT n.titre, n.texte, n.etat, n.dateCreation, n.dateModification, cf.code, ct.code FROM note n, couleur cf, couleur ct WHERE n.utilisateur = ? AND cf.id = n.couleurFond AND ct.id = n.couleurTexte AND (n.etat = "NORMAL" OR n.etat = "EPINGLE") ORDER BY n.etat, n.dateModification DESC')) {
             $req->bind_param('i', $_SESSION['utilisateur']);
             $req->execute();
             $req->store_result();
