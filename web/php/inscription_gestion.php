@@ -19,7 +19,7 @@ if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['mail']) && i
     $passwordConfirm = valid_donnees($_POST['motDePasseConfirm']);
 
     //On vérifie que les tailles sont respectées
-    if(strlen($password) >= 8 && strlen($password) <= 25 && strlen($nom) <= 25 && strlen($prenom) <= 25 && strlen($email) <= 25) {
+    if(strlen($password) >= 8 && strlen($password) <= 25 && strlen($nom) <= 25 && strlen($prenom) <= 25 && strlen($email) <= 50) {
 
         $password = password_hash($password, PASSWORD_DEFAULT);
 

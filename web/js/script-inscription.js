@@ -32,7 +32,8 @@ window.onload = function() {
                 return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email);
             },
             submitInscription(event) {
-                if(this.nom.length < 25 && this.prenom.length < 25 && this.email.length < 25 && this.password.length < 25 && this.passwordConfirm.length < 25) {
+                console.log("wtf?");
+                if(this.nom.length < 25 && this.prenom.length < 25 && this.email.length <= 50 && this.password.length <= 25 && this.passwordConfirm.length <= 25) {
                     //vérification que les mots de passe soient identiques
                     if(this.password.value === this.passwordConfirm.value) {
                         //vérification que l'email soit valide
@@ -40,9 +41,19 @@ window.onload = function() {
                             //vérification que le mot de passe soit assez long
                             if(this.password.length > 7) {
                                 event.target.submit();
+                            } else {
+                                console.log("euh, le mot de passe est trop court");
                             }
+                        } else {
+                            console.log("cringe")
                         }
+                    } else {
+                        console.log("cringev2")
                     }
+                }
+                else {
+                    console.log("sadge");
+                    console.log(this.email.length);
                 }
             }
         },
