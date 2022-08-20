@@ -131,6 +131,8 @@ header {
                     border: 1px solid $vert;
                     border-radius: 1em;
 
+                    z-index: 10;
+
                     @media screen and (max-width: 600px) {
                         display: none;
                     }
@@ -157,6 +159,8 @@ header {
                     height: 100vh;
 
                     background: $jaune;
+
+                    z-index: 10;
 
                     @media screen and (min-width: 600px) {
                         display: none;
@@ -205,6 +209,8 @@ header {
 
                 cursor: pointer;
                 transition: 0.6s ease-in-out;
+
+                z-index: 11;
 
                 @media screen and (max-width: 600px) {
                     top: calc(5vh - 2rem/2);

@@ -47,6 +47,8 @@ window.onload = function() {
                     document.querySelector(".profil-menu").classList.remove("open");
                     document.querySelector(".close-profil-menu").classList.remove("open");
                 }, 1000);
+
+                document.body.style.overflow = "scroll";
             },
             profilMenuOpen() {
                 //Il y a 2 classes pour profil-menu et close-profil-menu:
@@ -59,6 +61,8 @@ window.onload = function() {
                     document.querySelector(".profil-menu").classList.add("open-animation");
                     document.querySelector(".close-profil-menu").classList.add("open-animation");
                 }, 1);
+
+                document.body.style.overflow = "hidden";
             },
             verificationAdresseMail() {
                 return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email);

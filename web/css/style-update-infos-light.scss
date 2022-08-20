@@ -56,6 +56,8 @@ $gris-fonce: #1C1823;
 
         margin-bottom: 2em;
 
+        z-index: 0;
+
         %serveur {
             border: 1px solid $violet-gris;
             border-radius: 0.5rem;

@@ -141,6 +141,8 @@ header {
                     border: 1px solid $jaune;
                     border-radius: 1em;
 
+                    z-index: 10;
+
                     svg {
                         cursor: default;
                     }
@@ -161,6 +163,8 @@ header {
 
                     width: 100vw;
                     height: 100vh;
+
+                    z-index: 10;
 
                     background: $gris-fonce;
 
@@ -211,6 +215,8 @@ header {
 
                 cursor: pointer;
                 transition: 0.6s ease-in-out;
+
+                z-index: 11;
 
                 @media screen and (max-width: 600px) {
                     top: calc(5vh - 2rem/2);

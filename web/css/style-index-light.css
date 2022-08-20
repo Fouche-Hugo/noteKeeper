@@ -100,6 +100,7 @@ header > div > div .profil-menu .profil-menu-pc {
   color: #32330D;
   border: 1px solid #32330D;
   border-radius: 1em;
+  z-index: 10;
 }
 @media screen and (max-width: 600px) {
   header > div > div .profil-menu .profil-menu-pc {
@@ -122,6 +123,7 @@ header > div > div .profil-menu .profil-menu-mobile {
   width: 100vw;
   height: 100vh;
   background: #ffec64;
+  z-index: 10;
 }
 @media screen and (min-width: 600px) {
   header > div > div .profil-menu .profil-menu-mobile {
@@ -160,6 +162,7 @@ header > div > div .close-profil-menu {
   aspect-ratio: 1;
   cursor: pointer;
   transition: 0.6s ease-in-out;
+  z-index: 11;
 }
 @media screen and (max-width: 600px) {
   header > div > div .close-profil-menu {

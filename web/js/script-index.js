@@ -33,6 +33,8 @@ window.onload = function () {
                     document.querySelector(".profil-menu").classList.remove("open");
                     document.querySelector(".close-profil-menu").classList.remove("open");
                 }, 1000);
+
+                document.body.style.overflow = "scroll";
             },
             profilMenuOpen() {
                 //Il y a 2 classes pour profil-menu et close-profil-menu:
@@ -45,6 +47,8 @@ window.onload = function () {
                     document.querySelector(".profil-menu").classList.add("open-animation");
                     document.querySelector(".close-profil-menu").classList.add("open-animation");
                 }, 1);
+
+                document.body.style.overflow = "hidden";
             },
             notesListUpdate() {
                 let infos = new FormData();
@@ -357,7 +361,7 @@ window.onload = function () {
         props: ['titre', 'texte', 'date-creation', 'date-modification', 'couleur-fond', 'couleur-texte', 'etat', 'mode'],
         data() {
             return {
-                footerState: 'backgroundColor',
+                footerState: 'close',
                 secondaryFooterState: 'none',
                 editButtonVisibility: false,
                 editButtonVisibilityTimeout: null,
