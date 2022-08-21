@@ -73,6 +73,36 @@ window.onload = function () {
                         console.log("impossible de récupérer les données des notes");
                     }
                 });
+            },
+            notesListOrder() {
+                //on crée une liste de notes triées par date de modification et qui sont epinglées
+                let notesEpingles = [];
+                for(let i = 0;i < this.notes.length;i++) {
+                    if(this.notes[i].etat === "EPINGLE") {
+                        notesEpingles.push(this.notes[i]);
+                    }
+                }
+                notesEpingles.sort(function(a, b) {
+                    return new Date(b.dateModification) - new Date(a.dateModification);
+                });
+
+                //on créé une liste de notes triées par date de création et qui sont non epinglées
+                let notesNonEpingles = [];
+                for(let i = 0;i < this.notes.length;i++) {
+                    if(this.notes[i].etat !== "EPINGLE") {
+                        notesNonEpingles.push(this.notes[i]);
+                    }
+                }
+                notesNonEpingles.sort(function(a, b) {
+                    return new Date(b.dateModification) - new Date(a.dateModification);
+                });
+
+                //on fusionne les deux listes
+                let notes = notesEpingles.concat(notesNonEpingles);
+                this.notes = notes;
+                console.log(notesEpingles);
+                console.log(notesNonEpingles);
+                console.log(this.notes);
             }
         },
         mounted() {
@@ -339,7 +369,7 @@ window.onload = function () {
                             <path d="M25 25L5 5M25 5L5 25" stroke="#401B37" stroke-width="2.5" stroke-linecap="round"/>
                         </svg>
                     </div>
-                    <div class="note-footer-button note-footer-pin" v-if="footerState === 'open' && secondaryFooterState === 'none'" :class="{pinned: pinned, visible: pinnedButtonVisibility}" @click="switchPinnedState">
+                    <div class="note-footer-button note-footer-pin" v-if="footerState === 'open' && secondaryFooterState === 'none'" :class="{pinned: etat === 'EPINGLE', visible: pinnedButtonVisibility}" @click="switchPinnedState">
                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M18.4275 1.35375C18.5507 1.35353 18.6727 1.37759 18.7866 1.42457C18.9005 1.47154 19.004 1.5405 19.0912 1.6275L28.3725 10.9087C28.5482
                             11.0846 28.647 11.323 28.647 11.5716C28.647 11.8202 28.5482 12.0586 28.3725 12.2344C27.4725 13.1344 26.3625 13.3369 25.5544 13.3369C25.2225 13.3369
@@ -373,7 +403,7 @@ window.onload = function () {
                 pinnedButtonVisibilityTimeout: null,
                 deleteButtonVisibility: false,
                 deleteButtonVisibilityTimeout: null,
-                pinned: false,
+                //pinned: false,
                 editingMode: false,
                 colors: ["#ffd166", "#3772ff", "#df2935", "#a9f0d1", "#3f4b3b"],
                 titreEdit: this.titre,
@@ -426,17 +456,15 @@ window.onload = function () {
                 this.updateTexte();
             },
             switchPinnedState() {
-                this.pinned = !this.pinned;
                 console.log("envoi d'un message au serveur pour changer l'état de la note");
                 //stock actual date as the following string format YYYY-MM-DD HH:MM:SS
                 let date = new Date();
                 let dateString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-                this.$emit("update-date-modification", dateString);
 
                 let infosNote = new FormData();
                 infosNote.append("majNote", 1);
                 infosNote.append("dateModification", dateString);
-                if(this.pinned) {
+                if(this.etat === "NORMAL") {
                     infosNote.append("etat", "EPINGLE");
                 } else {
                     infosNote.append("etat", "NORMAL");
@@ -459,6 +487,13 @@ window.onload = function () {
                         console.log("impossible de mettre à jour la note : " + data.status);
                     }
                 });
+
+                if(this.etat === "NORMAL") {
+                    this.$emit("update-etat", "EPINGLE");
+                } else {
+                    this.$emit("update-etat", "NORMAL");
+                }
+                setTimeout(this.$emit("update-date-modification", dateString), 100);
             },
             switchEditingMode() {
                 this.editingMode = !this.editingMode;
@@ -621,9 +656,6 @@ window.onload = function () {
         },
         mounted() {
             console.log(this.titre + " " + this.texte + " " + this.dateCreation + " " + this.couleurFond + " " + this.couleurTexte + " " + this.etat);
-            if(this.etat === 'EPINGLE') {
-                this.pinned = true;
-            }
         }
     });
 

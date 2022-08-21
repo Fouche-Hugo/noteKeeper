@@ -19,7 +19,8 @@ include 'php/index_gestion.php';
         <note v-for="note in notes" :titre="note.titre" :texte="note.texte" :etat="note.etat" :date-creation="note.dateCreation" :date-modification="note.dateModification"
             :couleur-fond="note.couleurFond" :couleur-texte="note.couleurTexte" :mode="mode" @update-background-color="(color) => {note.couleurFond = color}"
             @update-text-color="(color) => {note.couleurTexte = color}" @update-titre="(titre) => {note.titre = titre}" @update-texte="(texte) => {note.texte = texte}"
-            @update-date-modification="(date) => {note.dateModification = date}" @delete-note="() => {index = notes.indexOf(note);notes.splice(index, 1);}"></note>
+            @update-date-modification="(date) => {note.dateModification = date;notesListOrder();}" @delete-note="() => {index = notes.indexOf(note);notes.splice(index, 1);}"
+            @update-etat="(etat) => {note.etat = etat}"></note>
     </div>
     <script src="https://unpkg.com/vue@3"></script>
     <script src="js/script-index.js"></script>

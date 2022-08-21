@@ -106,6 +106,7 @@ header > div > div .profil-menu .profil-menu-pc {
   color: #FCFCFF;
   border: 1px solid #ffec64;
   border-radius: 1em;
+  z-index: 10;
 }
 header > div > div .profil-menu .profil-menu-pc svg {
   cursor: default;
@@ -122,6 +123,7 @@ header > div > div .profil-menu .profil-menu-mobile {
   left: 0;
   width: 100vw;
   height: 100vh;
+  z-index: 10;
   background: #1C1823;
 }
 @media screen and (min-width: 600px) {
@@ -161,6 +163,7 @@ header > div > div .close-profil-menu {
   aspect-ratio: 1;
   cursor: pointer;
   transition: 0.6s ease-in-out;
+  z-index: 11;
 }
 @media screen and (max-width: 600px) {
   header > div > div .close-profil-menu {
