@@ -456,7 +456,6 @@ window.onload = function () {
                 this.updateTexte();
             },
             switchPinnedState() {
-                console.log("envoi d'un message au serveur pour changer l'état de la note");
                 //stock actual date as the following string format YYYY-MM-DD HH:MM:SS
                 let date = new Date();
                 let dateString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -499,12 +498,10 @@ window.onload = function () {
                 this.editingMode = !this.editingMode;
             },
             updateBackgroundColor(color) {
-                this.$emit('update-background-color', color);
-
                 //stock actual date as the following string format YYYY-MM-DD HH:MM:SS
                 let date = new Date();
                 let dateString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-                this.$emit("update-date-modification", dateString);
+                
 
                 let infosNote = new FormData();
                 infosNote.append("majNote", 1);
@@ -528,14 +525,13 @@ window.onload = function () {
                         console.log("impossible de mettre à jour la note : " + data.status);
                     }
                 });
+                this.$emit('update-background-color', color);
+                this.$emit("update-date-modification", dateString);
             },
             updateTextColor(color) {
-                this.$emit('update-text-color', color);
-
                 //stock actual date as the following string format YYYY-MM-DD HH:MM:SS
                 let date = new Date();
                 let dateString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-                this.$emit("update-date-modification", dateString);
 
                 let infosNote = new FormData();
                 infosNote.append("majNote", 1);
@@ -559,17 +555,16 @@ window.onload = function () {
                         console.log("impossible de mettre à jour la note : " + data.status);
                     }
                 });
+
+                this.$emit('update-text-color', color);
+                this.$emit("update-date-modification", dateString);
             },
             updateTitre() {
                 clearTimeout(this.editTitreTimeout);
                 this.editTitreTimeout = setTimeout(() => {
-                    this.$emit("update-titre", this.titreEdit);
-                    console.log("envoi d'un message au serveur pour changer le titre de la note");
-                    
                     //stock actual date as the following string format YYYY-MM-DD HH:MM:SS
                     let date = new Date();
                     let dateString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-                    this.$emit("update-date-modification", dateString);
                     
                     let infosNote = new FormData();
                     infosNote.append("majNote", 1);
@@ -593,18 +588,16 @@ window.onload = function () {
                             console.log("impossible de mettre à jour la note : " + data.status);
                         }
                     });
+                    this.$emit("update-titre", this.titreEdit);
+                    this.$emit("update-date-modification", dateString);
                 }, 2000);
             },
             updateTexte() {
                 clearTimeout(this.editTexteTimeout);
                 this.editTexteTimeout = setTimeout(() => {
-                    this.$emit("update-texte", this.texteEdit);
-                    console.log("envoi d'un message au serveur pour changer le texte de la note");
-                    
                     //stock actual date as the following string format YYYY-MM-DD HH:MM:SS
                     let date = new Date();
                     let dateString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-                    this.$emit("update-date-modification", dateString);
 
                     let infosNote = new FormData();
                     infosNote.append("majNote", 1);
@@ -628,10 +621,11 @@ window.onload = function () {
                             console.log("impossible de mettre à jour la note : " + data.status);
                         }
                     });
+                    this.$emit("update-texte", this.texteEdit);
+                    this.$emit("update-date-modification", dateString);
                 }, 2000);
             },
             deleteNote() {
-                this.$emit("delete-note");
                 let infosNote = new FormData();
                 infosNote.append("deleteNote", 1);
                 infosNote.append("dateCreation", this.dateCreation);
@@ -652,6 +646,7 @@ window.onload = function () {
                         console.log("impossible de supprimer la note : " + data.status);
                     }
                 });
+                this.$emit("delete-note");
             }
         },
         mounted() {
